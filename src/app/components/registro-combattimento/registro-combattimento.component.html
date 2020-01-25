@@ -1,0 +1,54 @@
+ <h1>
+    Combattimenti:
+</h1>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id </th>
+            <th>Territorio attaccante </th>
+            <th>Territorio difensore </th>
+            <th>Risultato </th>
+            <th></th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <tr *ngFor="let TempCombattimento of combattimenti">
+            <th>{{TempCombattimento.id}}</th>
+             <th>{{TempCombattimento.territorioAttaccante.nome}}</th>
+            <th>{{TempCombattimento.territorioDifensore.nome}}</th>
+            <th>{{TempCombattimento.risultato}}</th>
+            <th><button type="button" class="btn btn-outline-danger" [routerLink]="['/attacco', TempCombattimento.id]">Combatti</button>
+            </th>
+        </tr>
+    </tbody>
+</table>
+
+
+<form>
+  <div class="form-group">
+    <label for="territorioAttaccante">Nome territorio attaccante</label>
+    <input type="text" class="form-control" placeholder="Territorio attaccante" [(ngModel)]="territorioPassA.nome" name="territorioAttaccante"/> 
+  </div>
+  <div class="form-group">
+    <label for="territorioDifensore">Nome territorio difensore</label>
+    <input type="text" class="form-control" placeholder="Territorio difensore" [(ngModel)]="territorioPassD.nome" name="territorioDifensore"/> 
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="addCombattimento()">Combatti!</button>
+</form>
+<!--
+<div *ngIf="!isCollapsed">
+  <form>
+    <div class="form-group">
+      <label for="pedineAttaccante">Numero pedine attaccante</label>
+      <input type="text" class="form-control" placeholder="Pedine attaccante" [(ngModel)]="pedineAttaccante" name="pedineAttaccante"/> 
+    </div>
+    <div class="form-group">
+      <label for="pedineDifensore">Numero pedine difensore</label>
+      <input type="text" class="form-control" placeholder="Pedine difensore" [(ngModel)]="pedineDifensore" name="pedineDifensore"/> 
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="addBattaglia()">Lancia dadi!</button>
+  </form>
+</div>
+-->

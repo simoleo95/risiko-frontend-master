@@ -1,0 +1,42 @@
+<h1>Tabellone</h1>
+
+
+<h3>Territori</h3>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Id </th>
+            <th>Nome </th>
+            <th>Valore</th>
+            <th>Numero pedine</th>
+            <th>Possessore</th>
+
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let tempTerritorio of territori">
+            <th>{{tempTerritorio.id}}</th>
+            <th>{{tempTerritorio.nome}}</th>
+            <th>{{tempTerritorio.valore}}</th>   
+            <th>{{tempTerritorio.npedine}}</th> 
+            <th>{{tempTerritorio.giocatore.nome}}</th>   
+ 
+        </tr>
+    </tbody>
+</table>
+
+<form>
+    <div class="form-group">
+        <label for="nomeTerritorio">Nome territorio</label>
+        <input type="text" class="form-control" placeholder="Inserisci nome territorio" [(ngModel)]="territorio.nome" name="nome"/> 
+        <small id="nomeTerritorioHelp" class="form-text text-muted">Inserisci il nome del territorio che vuoi aggiungere.</small>
+    </div>
+    <div class="form-group">
+        <label for="valoreTerritorio">Eta</label>
+        <input type="text" class="form-control" placeholder="Valore" [(ngModel)]="territorio.valore" name="valore"/>
+    </div>
+    <button type="submit" class="btn btn-primary" (click)="addTerritorio()">Aggiungi territorio</button>
+</form>
+
+
