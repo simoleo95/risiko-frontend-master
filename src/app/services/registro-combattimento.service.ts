@@ -38,7 +38,8 @@ export class RegistroCombattimentoService extends FullResponceService{
                 data=>{
                   this._confini = data
                   for(let temp of this._confini){
-                    if(this._territorioD.id == temp.territorio2.id ){
+                    if(this._territorioD.id == temp.territorio2.id && 
+                    this._territorioA.giocatore.id != this._territorioD.giocatore.id){
                       this._combattimento.territorioAttaccante = this._territorioA;
                       this._combattimento.territorioDifensore = this._territorioD;
                       this._combattimento.risultato = "In corso";
@@ -51,7 +52,7 @@ export class RegistroCombattimentoService extends FullResponceService{
                     }
                   }
                   if(this._confinanti == false)
-                  alert("Territori non confinanti")
+                  alert("Errore territori")
                 })     
             })
         })

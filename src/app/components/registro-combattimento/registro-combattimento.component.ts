@@ -43,7 +43,6 @@ export class RegistroCombattimentoComponent implements OnInit {
 
   ngOnInit() {
     this.listCombattimenti();
-    //this.listAttacchi();
   }
 
   
@@ -58,13 +57,6 @@ export class RegistroCombattimentoComponent implements OnInit {
     )
   }
 
-  listAttacchi(){
-    this.registroService.getAPI('/getAttacchi').subscribe(
-      data=> {
-        this.attacchi = data;      
-      }
-    )
-  }
 
   addCombattimento(){
       this.combattimento = this.registroService.addCombattimento(this.territorioPassA, this.territorioPassD);
