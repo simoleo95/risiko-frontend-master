@@ -29,6 +29,15 @@ export class AttaccoComponent implements OnInit {
     risultati: Risultato[];
     newAttacco = true;
 
+    public regole = [{
+      valore: 1,
+      name: "Simone"
+  }, {
+      valore: 2,
+      name: "Classico"
+  }];
+
+  public selectedRegola: number = this.regole[1].valore;
 
   constructor(
     private route: ActivatedRoute,
@@ -82,10 +91,10 @@ export class AttaccoComponent implements OnInit {
       alert("Pedine non valido")
     }
     else{
+      this.attacco.nregola = this.selectedRegola;
+      console.log(this.selectedRegola)
       this.attacco.pedineAttacco= this.pedineAttaccante;
       this.attacco.pedineDifesa = this.pedineDifensore;
-      console.log(this.nRegola)
-      this.attacco.nRegola = this.nRegola;
       console.log(this.attacco)
       this.attaccoService.addAPI(this.attacco,"/addAttacco")
       .subscribe(

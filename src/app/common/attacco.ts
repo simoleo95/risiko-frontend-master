@@ -7,5 +7,5 @@ export class Attacco {
     perditeAttacco: number;
     perditeDifesa: number;
     combattimento: Combattimento;
-    nRegola:number;
+    nregola:number;
 }

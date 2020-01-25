@@ -46,8 +46,14 @@
       <label for="pedineDifensore">Numero pedine difensore</label>
       <input type="text" class="form-control" placeholder="Pedine difensore" [(ngModel)]="pedineDifensore" name="pedineDifensore"/> 
     </div>
+    <igx-radio *ngFor="let regola of regole"
+      name="regola"
+      [value]="regola.valore"
+      [(ngModel)]="selectedRegola">
+      {{regola.name}}
+    </igx-radio>
 
-    
+<div class="box" [style.background-color]="selectedColor"></div>
     
     <button type="submit" class="btn btn-primary" (click)="addBattaglia()">Lancia dadi!</button>
   </form>

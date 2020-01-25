@@ -12,10 +12,11 @@ import { AttaccoComponent } from './components/attacco/attacco.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LancioComponent } from './components/lancio/lancio.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IgxRadioModule } from 'igniteui-angular';
 
 const appRoutes: Routes = [
   { path: '/attacco', component: AttaccoComponent },
-]
+];
 
 @NgModule({
   declarations: [
@@ -25,17 +26,19 @@ const appRoutes: Routes = [
     RegistroCombattimentoComponent,
     AttaccoComponent,
     LancioComponent,
-    
-    ],
+  ],
   imports: [
     BrowserModule,
-    HttpClientModule, 
-    FormsModule, 
-    AppRoutingModule, BrowserAnimationsModule
+    HttpClientModule,
+    FormsModule,
+    AppRoutingModule, 
+    BrowserAnimationsModule,
+    IgxRadioModule
 
   ],
 
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
