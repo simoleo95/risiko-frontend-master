@@ -9,6 +9,7 @@
             <th>Territorio attaccante </th>
             <th>Territorio difensore </th>
             <th>Risultato </th>
+            <th>Turno</th>
             <th></th>
         </tr>
     </thead>
@@ -19,6 +20,7 @@
              <th>{{TempCombattimento.territorioAttaccante.nome}}</th>
             <th>{{TempCombattimento.territorioDifensore.nome}}</th>
             <th>{{TempCombattimento.risultato}}</th>
+            <th>{{TempCombattimento.giocatoreInTurno.turno.id}}</th>
             <th><button type="button" class="btn btn-outline-danger" [routerLink]="['/attacco', TempCombattimento.id]">Combatti</button>
             </th>
         </tr>
@@ -36,19 +38,9 @@
     <input type="text" class="form-control" placeholder="Territorio difensore" [(ngModel)]="territorioPassD.nome" name="territorioDifensore"/> 
   </div>
   <button type="submit" class="btn btn-primary" (click)="addCombattimento()">Combatti!</button>
+  <div class="form-group">
+    <button type="submit" class="btn btn-primary" (click)="fineTurno()">Fine Turno</button>
+  </div>
+
 </form>
-<!--
-<div *ngIf="!isCollapsed">
-  <form>
-    <div class="form-group">
-      <label for="pedineAttaccante">Numero pedine attaccante</label>
-      <input type="text" class="form-control" placeholder="Pedine attaccante" [(ngModel)]="pedineAttaccante" name="pedineAttaccante"/> 
-    </div>
-    <div class="form-group">
-      <label for="pedineDifensore">Numero pedine difensore</label>
-      <input type="text" class="form-control" placeholder="Pedine difensore" [(ngModel)]="pedineDifensore" name="pedineDifensore"/> 
-    </div>
-    <button type="submit" class="btn btn-primary" (click)="addBattaglia()">Lancia dadi!</button>
-  </form>
-</div>
--->
+

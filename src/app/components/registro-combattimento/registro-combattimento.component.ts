@@ -8,6 +8,7 @@ import { Attacco } from 'src/app/common/attacco';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CombattimentoService } from 'src/app/services/combattimento.service';
 import { delay } from 'rxjs/operators';
+import { TurnoService } from 'src/app/services/turno.service';
 
 
 @Component({
@@ -38,7 +39,8 @@ export class RegistroCombattimentoComponent implements OnInit {
     private attaccoService: AttaccoService,
     private router: Router,
     private route: ActivatedRoute,
-    private combattimentoService: CombattimentoService) { }
+    private combattimentoService: CombattimentoService,
+    private turnoService: TurnoService) { }
     
 
   ngOnInit() {
@@ -60,10 +62,16 @@ export class RegistroCombattimentoComponent implements OnInit {
 
   addCombattimento(){
       this.combattimento = this.registroService.addCombattimento(this.territorioPassA, this.territorioPassD);
-
-
 }
 
+fineTurno(){
+
+  this.turnoService.getAPI("/fineTurno")
+  .subscribe(
+    (responce) => {console.log(responce)}, (error) => {
+    console.log(error);
+  }); 
+}
 
 
 }

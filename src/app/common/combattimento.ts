@@ -1,5 +1,6 @@
 import { RegistroCombattimento } from './registro-combattimento';
 import { Territorio } from './territorio';
+import { GiocatoreInTurno } from './giocatore-in-turno';
 
 export class Combattimento {
     id: number;
@@ -7,4 +8,5 @@ export class Combattimento {
     registroCombattimento: RegistroCombattimento;
     territorioAttaccante: Territorio;
     territorioDifensore: Territorio;
+    giocatoreInTurno: GiocatoreInTurno;
 }

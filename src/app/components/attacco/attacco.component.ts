@@ -107,4 +107,5 @@ export class AttaccoComponent implements OnInit {
  
   }
 
+
 }
