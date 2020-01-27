@@ -9,6 +9,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { CombattimentoService } from 'src/app/services/combattimento.service';
 import { delay } from 'rxjs/operators';
 import { TurnoService } from 'src/app/services/turno.service';
+import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
 
 
 @Component({
@@ -29,6 +30,7 @@ export class RegistroCombattimentoComponent implements OnInit {
   // usati per creare nuovi attacchi e combattimenti
   combattimento = new Combattimento();
   attacco = new Attacco();
+  giocatoreTurno = new GiocatoreTurno();
 
   lastCombattimento = new Combattimento();
   isCollapsed = false;
@@ -45,6 +47,7 @@ export class RegistroCombattimentoComponent implements OnInit {
 
   ngOnInit() {
     this.listCombattimenti();
+    this.getGiocatoreTurno();
   }
 
   
@@ -54,24 +57,32 @@ export class RegistroCombattimentoComponent implements OnInit {
       data=> {
         console.log(data)
         this.combattimenti = data;
-        
       }
     )
   }
 
 
   addCombattimento(){
-      this.combattimento = this.registroService.addCombattimento(this.territorioPassA, this.territorioPassD);
-}
+    this.combattimento = this.registroService.addCombattimento(
+      this.territorioPassA, this.territorioPassD, this.giocatoreTurno.giro.nomeGiocatore);
+  } 
 
-fineTurno(){
-
+  fineTurno(){
   this.turnoService.getAPI("/fineTurno")
   .subscribe(
     (responce) => {console.log(responce)}, (error) => {
     console.log(error);
-  }); 
-}
+    }); 
+  }
+
+  getGiocatoreTurno(){
+    this.registroService.getAPIone('/getGiocatoreTurno').subscribe(
+      data=> {
+        console.log(data)
+        this.giocatoreTurno = data;
+      }
+    )
+  }
 
 
 }
