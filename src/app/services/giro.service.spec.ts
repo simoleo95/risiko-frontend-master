@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TurnoService } from './turno.service';
+import { GiroService } from './giro.service';
 
-describe('TurnoService', () => {
+describe('GiroService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: TurnoService = TestBed.get(TurnoService);
+    const service: GiroService = TestBed.get(GiroService);
     expect(service).toBeTruthy();
   });
 });

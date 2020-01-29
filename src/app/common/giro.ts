@@ -1,4 +1,7 @@
+import { GiocatoreTurno } from './giocatore-turno';
+
 export class Giro {
     id:number;
-    nomeGiocatore: String;
+    dataCreazione: Date;
+    turniGiocatore: GiocatoreTurno[];
 }

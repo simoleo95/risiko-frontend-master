@@ -5,11 +5,9 @@ import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class TurnoService extends FullResponceService{
+export class GiroService extends FullResponceService{
 
-  constructor(private httpClient: HttpClient) {
+  constructor(httpClient: HttpClient) {
     super(httpClient);
-  }
-
-  
+   }
 }

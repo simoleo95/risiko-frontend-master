@@ -1,8 +1,8 @@
-import { Turno } from './turno';
 import { Giro } from './giro';
+import { Turno } from './turno';
 
 export class GiocatoreTurno {
     id:number;
-    turno:Turno;
     giro:Giro;
+    turno:Turno;
 }
