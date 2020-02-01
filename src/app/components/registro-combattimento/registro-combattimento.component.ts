@@ -34,6 +34,8 @@ export class RegistroCombattimentoComponent implements OnInit {
 
   lastCombattimento = new Combattimento();
   isCollapsed = false;
+  boolCarta = true;
+  boolComb=true;
 
 
 

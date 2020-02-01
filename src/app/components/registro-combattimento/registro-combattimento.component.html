@@ -21,8 +21,18 @@
             <th>{{TempCombattimento.territorioDifensore.nome}}</th>
             <th>{{TempCombattimento.risultato}}</th>
             <th>{{TempCombattimento.giocatoreInTurno.turno.id}}</th>
-            <th><button type="button" class="btn btn-outline-danger" [routerLink]="['/attacco', TempCombattimento.id]">Combatti</button>
+            <th>
+              <div *ngIf="boolComb">
+              <button type="button" class="btn btn-outline-danger" [routerLink]="['/attacco', TempCombattimento.id]">Combatti</button>
+              </div>
             </th>
+              <th>
+                <div *ngIf="boolCarta">
+                <button type="button" class="btn btn-outline-danger" [routerLink]="['/attacco', TempCombattimento.id]">Assegna carta</button>
+                </div>
+              </th>
+
+          
         </tr>
     </tbody>
 </table>

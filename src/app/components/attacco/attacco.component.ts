@@ -53,7 +53,7 @@ export class AttaccoComponent implements OnInit {
         this.registroService.getAPIone('/getCombattimento/'+this.id$).subscribe(
           data=> {
             this.combattimento = data;  
-            if(this.combattimento.risultato == "Concluso"){
+            if(this.combattimento.risultato != "In corso"){
               this.newAttacco = false;
             }     
           }
