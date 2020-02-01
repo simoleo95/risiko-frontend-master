@@ -7,7 +7,7 @@ import { FullResponceService } from 'src/app/services/full-responce.service';
 import { Territorio } from 'src/app/common/territorio';
 import { RegistroCombattimentoService } from 'src/app/services/registro-combattimento.service';
 import { Attacco } from 'src/app/common/attacco';
-import { Risultato } from 'src/app/common/risultato';
+import { Lancio } from 'src/app/common/lancio';
 
 @Component({
   selector: 'app-attacco',
@@ -26,7 +26,7 @@ export class AttaccoComponent implements OnInit {
     attacchi: Attacco[];
     nRegola:number;
 
-    risultati: Risultato[];
+    lanci: Lancio[];
     newAttacco = true;
 
     public regole = [{
@@ -78,7 +78,7 @@ export class AttaccoComponent implements OnInit {
   listRisultati(){
     this.attaccoService.getAPI('/getRisultati/').subscribe(
       data=> {
-        this.risultati = data;
+        this.lanci = data;
       },(error) => {    
         console.log(error);
       }

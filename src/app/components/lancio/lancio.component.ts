@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AttaccoService } from 'src/app/services/attacco.service';
-import { Risultato } from 'src/app/common/risultato';
+import { Lancio } from 'src/app/common/lancio';
 
 @Component({
   selector: 'app-lancio',
@@ -11,7 +11,7 @@ import { Risultato } from 'src/app/common/risultato';
 export class LancioComponent implements OnInit {
 
   id$: number;
-  risultati: Risultato[];
+  lanci: Lancio[];
   constructor(    
     private route: ActivatedRoute,
     private attaccoService: AttaccoService,
@@ -23,7 +23,7 @@ export class LancioComponent implements OnInit {
   
         this.attaccoService.getAPIone('/getRisultatiFromAttacco/'+this.id$).subscribe(
           data=> {
-            this.risultati = data;         
+            this.lanci = data;         
           }
         )
 

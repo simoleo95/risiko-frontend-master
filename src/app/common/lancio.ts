@@ -1,8 +1,8 @@
 import { Attacco } from './attacco';
 
-export class Risultato {
+export class Lancio {
     id:number;
     ruolo: string;
-    dado: number;
+    risDado: number;
     attacco:Attacco;
 }
