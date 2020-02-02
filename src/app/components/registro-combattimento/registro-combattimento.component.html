@@ -4,6 +4,7 @@
 
 <table class="table">
     <thead class="thead-dark">
+
         <tr>
             <th>Id </th>
             <th>Territorio attaccante </th>
@@ -11,28 +12,35 @@
             <th>Risultato </th>
             <th>Turno</th>
             <th></th>
+            <th></th>
         </tr>
+
     </thead>
 
     <tbody>
-        <tr *ngFor="let TempCombattimento of combattimenti">
+        <tr *ngFor="let TempCombattimento of combattimenti" >
+          <!--<div *ngIf="TempCombattimento.cartaAssegnata!=2">
+          -->
             <th>{{TempCombattimento.id}}</th>
              <th>{{TempCombattimento.territorioAttaccante.nome}}</th>
             <th>{{TempCombattimento.territorioDifensore.nome}}</th>
             <th>{{TempCombattimento.risultato}}</th>
             <th>{{TempCombattimento.giocatoreInTurno.turno.id}}</th>
             <th>
-              <div *ngIf="boolComb">
+              <div *ngIf="TempCombattimento.risultato!='Concluso'">
               <button type="button" class="btn btn-outline-danger" [routerLink]="['/attacco', TempCombattimento.id]">Combatti</button>
               </div>
+              <div *ngIf="TempCombattimento.risultato=='Concluso'">
+                <button type="button" class="btn btn-outline-danger" [routerLink]="['/attacco', TempCombattimento.id]">Vedi attacchi</button>
+                </div>
             </th>
               <th>
-                <div *ngIf="boolCarta">
-                <button type="button" class="btn btn-outline-danger" [routerLink]="['/attacco', TempCombattimento.id]">Assegna carta</button>
+                <div *ngIf="TempCombattimento.cartaAssegnata==1">
+                <button type="button" class="btn btn-outline-danger" (click)="assegnaCarta()" >Assegna carta</button>
                 </div>
               </th>
 
-          
+    
         </tr>
     </tbody>
 </table>

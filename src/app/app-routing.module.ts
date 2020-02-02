@@ -6,6 +6,7 @@ import { GiocatoreListComponent } from "./components/giocatore-list/giocatore-li
 import { TabelloneListComponent } from './components/tabellone-list/tabellone-list.component';
 import { AppComponent } from './app.component';
 import { LancioComponent } from './components/lancio/lancio.component';
+import { CarteComponent } from "./components/carte/carte.component";
 
 const routes: Routes = [
   {path: 'attacco' , component: AttaccoComponent},
@@ -15,6 +16,7 @@ const routes: Routes = [
   {path: 'giocatore-list' , component: GiocatoreListComponent},
   {path: 'tabellone' , component: TabelloneListComponent},
   {path: 'lancio/:id', component: LancioComponent},
+  {path: 'carte', component: CarteComponent},
 
 
   { path: '',  redirectTo: '/tabellone', pathMatch: 'full' },

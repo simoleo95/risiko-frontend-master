@@ -13,6 +13,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { LancioComponent } from './components/lancio/lancio.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IgxRadioModule } from 'igniteui-angular';
+import { CarteComponent } from './components/carte/carte.component';
 
 const appRoutes: Routes = [
   { path: '/attacco', component: AttaccoComponent },
@@ -26,6 +27,7 @@ const appRoutes: Routes = [
     RegistroCombattimentoComponent,
     AttaccoComponent,
     LancioComponent,
+    CarteComponent,
   ],
   imports: [
     BrowserModule,

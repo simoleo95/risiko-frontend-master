@@ -86,5 +86,8 @@ export class RegistroCombattimentoComponent implements OnInit {
     )
   }
 
+  assegnaCarta(){
+    this.router.navigateByUrl("carte")  }
+
 
 }

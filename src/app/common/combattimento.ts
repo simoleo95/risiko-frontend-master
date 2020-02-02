@@ -10,4 +10,5 @@ export class Combattimento {
     territorioAttaccante: Territorio;
     territorioDifensore: Territorio;
     giocatoreInTurno: GiocatoreTurno;
+    cartaAssegnata:number;
 }
