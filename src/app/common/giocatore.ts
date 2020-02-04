@@ -5,4 +5,5 @@ export class Giocatore {
     nome:string;
     eta: number
     territori: Territorio[];
+    cartaAssegnata: number;
 }

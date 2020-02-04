@@ -10,6 +10,7 @@ import { CombattimentoService } from 'src/app/services/combattimento.service';
 import { delay } from 'rxjs/operators';
 import { GiroService } from 'src/app/services/giro.service';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
+import { Giocatore } from 'src/app/common/giocatore';
 
 
 @Component({
@@ -57,7 +58,6 @@ export class RegistroCombattimentoComponent implements OnInit {
   listCombattimenti(){
     this.registroService.getAPI('/getCombattimenti').subscribe(
       data=> {
-        console.log(data)
         this.combattimenti = data;
       }
     )
@@ -80,14 +80,21 @@ export class RegistroCombattimentoComponent implements OnInit {
   getGiocatoreTurno(){
     this.registroService.getAPIone('/getGiocatoreTurno').subscribe(
       data=> {
-        console.log(data)
         this.giocatoreTurno = data;
       }
     )
   }
 
-  assegnaCarta(){
-    this.router.navigateByUrl("carte")  }
+  assegnaCarta(giocatore: Giocatore){
+    console.log(giocatore)
+    this.attaccoService.addAPI(giocatore,"/assegnaCarta")
+    .subscribe(
+      (responce) => {console.log(responce)}, (error) => {
+      console.log(error);
+    });
+
+    this.router.navigateByUrl("carte")  
+  }
 
 
 }
