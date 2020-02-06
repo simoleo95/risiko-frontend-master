@@ -1,0 +1,33 @@
+<form>
+
+    <table>
+        
+        <td>
+            <tr>
+                <div class="form-group">
+                <label for="territorio1">Territorio 1</label>
+                <input type="text" class="form-control" placeholder="Territorio 1" [(ngModel)]="territorio1.nome" name="territorio1"/> 
+              </div>
+            </tr>
+            <tr>    
+                <div class="form-group">
+                    <label for="territorio2">Territorio 2</label>
+                    <input type="text" class="form-control" placeholder="Territorio 2" [(ngModel)]="territorio2.nome" name="territorio2"/> 
+              </div>
+            </tr>
+        </td>
+        <td>
+            <tr>   
+                <div class="form-group">
+                    <label for="pedine1">Pedine</label>
+                    <input type="text" class="form-control" placeholder="Pedine" [(ngModel)]="pedine1" name="pedine1"/> 
+                </div>
+            </tr>
+        </td>
+    </table>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-primary" (click)="spostaPedine()">Sposta</button>
+    </div>
+  
+  </form>

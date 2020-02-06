@@ -7,6 +7,8 @@ import { TabelloneListComponent } from './components/tabellone-list/tabellone-li
 import { AppComponent } from './app.component';
 import { LancioComponent } from './components/lancio/lancio.component';
 import { CarteComponent } from "./components/carte/carte.component";
+import { SpostaPedineComponent } from "./components/sposta-pedine/sposta-pedine.component";
+
 
 const routes: Routes = [
   {path: 'attacco' , component: AttaccoComponent},
@@ -17,7 +19,7 @@ const routes: Routes = [
   {path: 'tabellone' , component: TabelloneListComponent},
   {path: 'lancio/:id', component: LancioComponent},
   {path: 'carte', component: CarteComponent},
-
+  {path: 'sposta-pedine', component: SpostaPedineComponent},
 
   { path: '',  redirectTo: '/tabellone', pathMatch: 'full' },
 ];
