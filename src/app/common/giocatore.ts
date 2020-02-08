@@ -6,4 +6,5 @@ export class Giocatore {
     eta: number
     territori: Territorio[];
     cartaAssegnata: number;
+    colore: String;
 }

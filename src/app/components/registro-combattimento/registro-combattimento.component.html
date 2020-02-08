@@ -1,6 +1,12 @@
  <h1>
     Combattimenti:
 </h1>
+<ul *ngIf="tComplete">
+  <h3>Giocatore in turno: {{giocatoreTurno.turno.nomeGiocatore}}</h3>
+</ul>
+
+
+
 
 <table class="table">
     <thead class="thead-dark">

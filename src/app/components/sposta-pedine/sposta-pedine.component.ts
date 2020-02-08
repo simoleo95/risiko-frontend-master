@@ -24,6 +24,11 @@ export class SpostaPedineComponent implements OnInit {
   spostaPedine(){
     console.log(this.territorio1,this.territorio2,this.pedine1)
     this.spostaPedineService.spostaPedine(this.territorio1, this.territorio2, this.pedine1);
-    //this.router.navigateByUrl("/tabellone")
+    this.spostaPedineService.getAPI("/fineTurno")
+    .subscribe(
+      (responce) => {console.log(responce)}, (error) => {
+      console.log(error);
+      }); 
+    this.router.navigateByUrl("/tabellone")
   }
 }

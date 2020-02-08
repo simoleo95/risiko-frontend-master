@@ -7,10 +7,11 @@ import { AttaccoService } from 'src/app/services/attacco.service';
 import { Attacco } from 'src/app/common/attacco';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CombattimentoService } from 'src/app/services/combattimento.service';
-import { delay } from 'rxjs/operators';
+import { delay, finalize } from 'rxjs/operators';
 import { GiroService } from 'src/app/services/giro.service';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
 import { Giocatore } from 'src/app/common/giocatore';
+import { Observable } from 'rxjs';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class RegistroCombattimentoComponent implements OnInit {
   combattAttuale: Combattimento;
   combattimenti: Combattimento[];
   attacchi: Attacco[];
+  tComplete: boolean = false;
+  cComplete: boolean = false;
   // usati per creare nuovi attacchi e combattimenti
   combattimento = new Combattimento();
   attacco = new Attacco();
@@ -49,14 +52,15 @@ export class RegistroCombattimentoComponent implements OnInit {
     
 
   ngOnInit() {
-    this.listCombattimenti();
     this.getGiocatoreTurno();
+    this.listCombattimenti();
+    
   }
 
   
 
   listCombattimenti(){
-    this.registroService.getAPI('/getCombattimenti').subscribe(
+    this.registroService.getAPI('/getCombattimenti').pipe(finalize(()=> this.cComplete=true)).subscribe(
       data=> {
         this.combattimenti = data;
       }
@@ -64,9 +68,14 @@ export class RegistroCombattimentoComponent implements OnInit {
   }
 
 
+
   addCombattimento(){
     this.combattimento = this.registroService.addCombattimento(
       this.territorioPassA, this.territorioPassD, this.giocatoreTurno.turno.nomeGiocatore);
+      this.cComplete = false;
+    this.ngOnInit() 
+      
+     
   } 
 
   fineTurno(){
@@ -75,11 +84,14 @@ export class RegistroCombattimentoComponent implements OnInit {
     (responce) => {console.log(responce)}, (error) => {
     console.log(error);
     }); 
+    this.tComplete = false;
+    this.ngOnInit()
   }
 
   getGiocatoreTurno(){
-    this.registroService.getAPIone('/getGiocatoreTurno').subscribe(
+    this.registroService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
       data=> {
+        console.log(data)
         this.giocatoreTurno = data;
       }
     )

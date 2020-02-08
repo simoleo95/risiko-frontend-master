@@ -4,6 +4,7 @@ import { Territorio } from 'src/app/common/territorio';
 import { GiocatoreService } from 'src/app/services/giocatore.service';
 import { RegistroCombattimentoComponent } from '../registro-combattimento/registro-combattimento.component';
 import { Router } from '@angular/router';
+import { Partita } from 'src/app/common/partita';
 
 
 @Component({
@@ -17,6 +18,8 @@ export class GiocatoreListComponent implements OnInit {
   territorio:Territorio;
   giocatore = new Giocatore()
   mySubscription: any;
+  partita : Partita = new Partita();
+
   
   constructor(private giocatoreService: GiocatoreService,private router: Router) {
     
@@ -55,9 +58,15 @@ export class GiocatoreListComponent implements OnInit {
         console.log(error);
       }
     )
-
     this.ngOnInit();
   }
-  
+
+  addPartita():void{
+    this.giocatoreService.addAPI(this.partita,"/addPartita")
+    .subscribe(
+      (responce) => {console.log(responce)}, (error) => {
+      console.log(error);
+    }); 
+  }
 
 }

@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FullResponceService } from './services/full-responce.service';
+import { GiocatoreTurno } from './common/giocatore-turno';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +10,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'angular-ecommerce';
+
+
+
+  ngOnInit(): void {
+
+    
+  }
 }
