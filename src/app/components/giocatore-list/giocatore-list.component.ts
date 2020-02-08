@@ -5,6 +5,8 @@ import { GiocatoreService } from 'src/app/services/giocatore.service';
 import { RegistroCombattimentoComponent } from '../registro-combattimento/registro-combattimento.component';
 import { Router } from '@angular/router';
 import { Partita } from 'src/app/common/partita';
+import { Modalita } from 'src/app/common/modalita';
+import { MapOperator } from 'rxjs/internal/operators/map';
 
 
 @Component({
@@ -17,10 +19,10 @@ export class GiocatoreListComponent implements OnInit {
   giocatori: Giocatore[];
   territorio:Territorio;
   giocatore = new Giocatore()
-  mySubscription: any;
-  partita : Partita = new Partita();
-
-  
+  partita = new Partita();
+  modalitaNome : String;
+  mod = new Modalita();
+  nRimescoli: number;
   constructor(private giocatoreService: GiocatoreService,private router: Router) {
     
   }
@@ -62,6 +64,10 @@ export class GiocatoreListComponent implements OnInit {
   }
 
   addPartita():void{
+    this.mod.nrimescoli=this.nRimescoli;
+    console.log(this.nRimescoli)
+    this.mod.nomeM = this.modalitaNome
+    this.partita.modalitaB = this.mod;
     this.giocatoreService.addAPI(this.partita,"/addPartita")
     .subscribe(
       (responce) => {console.log(responce)}, (error) => {
