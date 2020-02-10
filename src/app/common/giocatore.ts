@@ -1,4 +1,5 @@
 import { Territorio } from './territorio';
+import { DescrittorePedina } from './descrittore-pedina';
 
 export class Giocatore {
     id: number;
@@ -6,5 +7,5 @@ export class Giocatore {
     eta: number
     territori: Territorio[];
     cartaAssegnata: number;
-    colore: String;
+    descrittorePedina : DescrittorePedina;
 }

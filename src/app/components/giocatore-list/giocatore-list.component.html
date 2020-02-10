@@ -5,37 +5,58 @@
     <h3>Prima crea una partita</h3>
 </ul>
 <ul *ngIf="partitaCreata">
-<table class="table" >
-    <thead class="thead-dark">
-        <tr>
-            <th>Id </th>
-            <th>Nome </th>
-            <th>Eta</th>
-            <th></th>
-        </tr>
-    </thead>
+    <table class="table" >
+        <thead class="thead-dark">
+            <tr>
+                <th>Id </th>
+                <th>Nome </th>
+                <th>Eta</th>
+                <th>Colore squadra</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let giocatore of giocatori">
+                <th>{{giocatore.id}}</th>
+                <th>{{giocatore.nome}}</th>
+                <th>{{giocatore.eta}}</th>   
+                <th>{{giocatore.descrittorePedina.colore}}</th>   
 
-    <tbody>
-        <tr *ngFor="let giocatore of giocatori">
-            <th>{{giocatore.id}}</th>
-            <th>{{giocatore.nome}}</th>
-            <th>{{giocatore.eta}}</th>   
-            <th><button type="button" class="btn btn-outline-danger" (click)="deleteGiocatore(giocatore.id)">Elimina</button>
-            </th>
-        </tr>
-    </tbody>
-</table>
+                <th><button type="button" class="btn btn-outline-danger" (click)="deleteGiocatore(giocatore.id)">Elimina</button>
+                </th>
+            </tr>
+        </tbody>
+    </table>
 
-<form>
-    <div class="form-group">
-        <label for="nomeGiocatore">Nome giocatore</label>
-        <input type="text" class="form-control" placeholder="Inserisci nome giocatore" [(ngModel)]="giocatore.nome" name="nome"/> 
-        <small id="nomeGiocatoreHelp" class="form-text text-muted">Inserisci il nome del giocatore che vuoi aggiungere.</small>
-    </div>
-    <div class="form-group">
-        <label for="etaGiocatore">Eta</label>
-        <input type="text" class="form-control" placeholder="Eta" [(ngModel)]="giocatore.eta" name="eta"/>
-    </div>
-    <button type="submit" class="btn btn-primary" (click)="addGiocatore()">Aggiungi giocatore</button>
-</form>
+    <ul *ngIf="!fineGiocatori">
+        <form>
+            <div class="form-group">
+                <label for="nomeGiocatore">Nome giocatore</label>
+                <input type="text" class="form-control" placeholder="Inserisci nome giocatore" [(ngModel)]="giocatore.nome" name="nome"/> 
+                <small id="nomeGiocatoreHelp" class="form-text text-muted">Inserisci il nome del giocatore che vuoi aggiungere.</small>
+            </div>
+            <div class="form-group">
+                <label for="etaGiocatore">Eta</label>
+                <input type="text" class="form-control" placeholder="Eta" [(ngModel)]="giocatore.eta" name="eta"/>
+            </div>
+            <div class="form-group">
+                <label for="coloreSquadra">Colore</label>
+                <input type="text" class="form-control" placeholder="Colore" [(ngModel)]="coloreSet" name="colore"/>
+            </div>
+            <button type="submit" class="btn btn-primary" (click)="addGiocatore()">Aggiungi giocatore</button>
+            <br><br>
+            <button type="submit" class="btn btn-primary" (click)="endGiocatori()">Fine Giocatori</button>
+        </form>
+    </ul>
+    <ul *ngIf="fineGiocatori&&!mazziereCreato">
+        <p>Come determinare il mazziere: </p>
+        <igx-radio *ngFor="let regola of regole"
+        name="regola"
+        [value]="regola.valore"
+        [(ngModel)]="selectedRegola">
+        {{regola.name}}
+      </igx-radio>
+      <br>
+        <button type="submit" class="btn btn-primary" (click)="getMazziere()">Determina mazziere</button>
+    </ul>
 </ul>

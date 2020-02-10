@@ -8,6 +8,7 @@ import { Partita } from 'src/app/common/partita';
 import { Modalita } from 'src/app/common/modalita';
 import { MapOperator } from 'rxjs/internal/operators/map';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { DescrittorePedina } from 'src/app/common/descrittore-pedina';
 
 
 @Component({
@@ -25,6 +26,19 @@ export class GiocatoreListComponent implements OnInit {
   mod = new Modalita();
   nRimescoli: number;
   partitaCreata:boolean = false;
+  fineGiocatori: boolean = false;
+  mazziereCreato : boolean = false;
+  coloreSet : String ;
+  public regole = [{
+    valore: "Casuale",
+    name: "Casuale"
+}, {
+    valore: "Giovane",
+    name: "Giovane"
+}];
+  public selectedRegola: String = this.regole[1].valore;
+
+
   constructor(private giocatoreService: GiocatoreService,private router: Router,
     private localStorageService: LocalStorageService) {
     
@@ -34,6 +48,11 @@ export class GiocatoreListComponent implements OnInit {
     if(this.localStorageService.retriveInfo()){
     this.listGiocatori();
     this.partitaCreata = true;
+    if(this.localStorageService.getPartita()[1]!=undefined)
+    if(this.localStorageService.getPartita()[1].title!=0)
+      this.fineGiocatori = true;
+    if(this.localStorageService.getPartita()[2]!=undefined)
+      this.mazziereCreato = true;
   }
  }
  
@@ -49,6 +68,11 @@ export class GiocatoreListComponent implements OnInit {
   }
 
   addGiocatore():void{
+    console.log(this.coloreSet)
+    let descrittorePedina : DescrittorePedina = new DescrittorePedina();
+    descrittorePedina.colore = this.coloreSet;
+    this.giocatore.descrittorePedina=descrittorePedina;
+    
     this.giocatoreService.addAPI(this.giocatore,"/addGiocatore")
     .subscribe((responce) => {console.log(responce);
     }, (error) => {
@@ -56,6 +80,7 @@ export class GiocatoreListComponent implements OnInit {
     });
     this.ngOnInit();
     this.ngOnInit();
+    
   }
 
   deleteGiocatore(n:number){
@@ -69,21 +94,31 @@ export class GiocatoreListComponent implements OnInit {
     this.ngOnInit();
   }
 
-  addPartita():void{
-    /*
-    this.mod.nrimescoli=this.nRimescoli;
-    this.mod.nomeM = this.modalitaNome
-    this.partita.modalitaB = this.mod;
-  
-    this.giocatoreService.addAPI(this.partita,"/addPartita")
-    .subscribe(
-      (responce) => {console.log(responce)}, (error) => {
-      console.log(error);
-    }); 
-    */
-    this.partitaCreata = true;
-    this.ngOnInit(); 
+  endGiocatori(){
+    let n:number;
+    // salva in locale il numero di giocatori 
+    this.giocatoreService.getAPIone('/nGiocatori/').subscribe(
+      data=> {
+        n = data;
+        this.fineGiocatori = true;
+        this.localStorageService.storeOnLocalStorage(n)
+      },(error) => {    
+        console.log(error);
+      }
+    )
+    this.ngOnInit();
   }
 
+  getMazziere(){
+    // salva in locale chi è il mazziere
+    this.giocatoreService.getAPIone('/getMazziere/'+this.selectedRegola).subscribe(
+      data=> {
+        this.localStorageService.storeOnLocalStorage(data)
+      },(error) => {    
+        console.log(error);
+      }
+    )
+      this.mazziereCreato = true;
+  }
 
 }

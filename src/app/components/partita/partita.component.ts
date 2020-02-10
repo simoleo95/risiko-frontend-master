@@ -3,6 +3,7 @@ import { Partita } from 'src/app/common/partita';
 import { Modalita } from 'src/app/common/modalita';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { FullResponceService } from 'src/app/services/full-responce.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class PartitaComponent implements OnInit {
   nRimescoli: number;
   partitaCreata:boolean = false;
   constructor(private localStorageService: LocalStorageService,
-    private giocatoreService : FullResponceService) { }
+    private giocatoreService : FullResponceService,
+    private router: Router) { }
 
   ngOnInit() {
 
@@ -32,14 +34,13 @@ export class PartitaComponent implements OnInit {
   }
 
   addPartita(){
-        
     this.mod.nrimescoli=this.nRimescoli;
     this.mod.nomeM = this.modalitaNome
     this.partita.modalitaB = this.mod;
   
     this.giocatoreService.addAPI(this.partita,"/addPartita")
     .subscribe(
-      (responce) => {console.log(responce)}, (error) => {
+      (responce) => {console.log(responce); this.router.navigateByUrl("giocatore-list")}, (error) => {
       console.log(error);
     }); 
     
@@ -47,6 +48,8 @@ export class PartitaComponent implements OnInit {
     const newTodo = this.partita; 
     this.localStorageService.storeOnLocalStorage(newTodo);
   }
+
+  
 
 }
 

@@ -13,8 +13,7 @@ export class LocalStorageService {
 
   anotherTodolist = [];
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) { }
-  public storeOnLocalStorage(taskTitle: Partita): void {
-       this.storage.clear();
+  public storeOnLocalStorage(taskTitle: Object): void {
        // get array of tasks from local storage
        const currentTodoList = this.storage.get(STORAGE_KEY) || [];
        // push new task to array
