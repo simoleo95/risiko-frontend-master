@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Territorio } from 'src/app/common/territorio';
 import { Router } from '@angular/router';
 import { SpostaPedineService } from 'src/app/services/sposta-pedine.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-sposta-pedine',
@@ -13,12 +14,16 @@ export class SpostaPedineComponent implements OnInit {
   constructor(
     private router: Router,
     private spostaPedineService: SpostaPedineService,
+    private localStorageService: LocalStorageService
     ) { }
+  partitaCreata: boolean = false;  
   territorio1: Territorio = new Territorio();
   territorio2:Territorio = new Territorio();
   pedine1: number;
 
   ngOnInit() {
+    if(this.localStorageService.retriveInfo())
+      this.partitaCreata = true;
   }
 
   spostaPedine(){

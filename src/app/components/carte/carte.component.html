@@ -1,4 +1,8 @@
-<p>carte works!</p>
+<h1>Carte</h1>
+<ul *ngIf="!partitaCreata">
+    <h3>prima crea una partita</h3>
+</ul>
+<ul *ngIf="partitaCreata">
 <table class="table">
     <thead class="thead-dark">
         <tr>
@@ -17,3 +21,4 @@
         </tr>
     </tbody>
 </table>
+</ul>

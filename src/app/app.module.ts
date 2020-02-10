@@ -15,6 +15,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { IgxRadioModule } from 'igniteui-angular';
 import { CarteComponent } from './components/carte/carte.component';
 import { SpostaPedineComponent } from './components/sposta-pedine/sposta-pedine.component';
+import { PartitaComponent } from './components/partita/partita.component';
+import { StorageServiceModule } from 'ngx-webstorage-service';
+import { LocalStorageService } from './services/local-storage.service';
+
 
 const appRoutes: Routes = [
   { path: '/attacco', component: AttaccoComponent },
@@ -30,6 +34,7 @@ const appRoutes: Routes = [
     LancioComponent,
     CarteComponent,
     SpostaPedineComponent,
+    PartitaComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,11 +42,12 @@ const appRoutes: Routes = [
     FormsModule,
     AppRoutingModule, 
     BrowserAnimationsModule,
-    IgxRadioModule
+    IgxRadioModule,
+    StorageServiceModule
 
   ],
 
-  providers: [],
+  providers: [LocalStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

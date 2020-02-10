@@ -8,6 +8,7 @@ import { Territorio } from 'src/app/common/territorio';
 import { RegistroCombattimentoService } from 'src/app/services/registro-combattimento.service';
 import { Attacco } from 'src/app/common/attacco';
 import { Lancio } from 'src/app/common/lancio';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-attacco',
@@ -43,25 +44,29 @@ export class AttaccoComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private attaccoService: FullResponceService,
-    private registroService: RegistroCombattimentoService
+    private registroService: RegistroCombattimentoService,
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.id$ = params['id'];
-  
-        this.registroService.getAPIone('/getCombattimento/'+this.id$).subscribe(
-          data=> {
-            this.combattimento = data;  
-            if(this.combattimento.risultato != "In corso"){
-              this.newAttacco = false;
-            }     
-          }
-        )
-         //console.log(`${id}`);
-      });
-      this.listAttacchi();
-      this.listRisultati();
+    if(this.localStorageService.retriveInfo()){
+      this.route.params.subscribe(params => {
+        this.id$ = params['id'];
+    
+          this.registroService.getAPIone('/getCombattimento/'+this.id$).subscribe(
+            data=> {
+              this.combattimento = data;  
+              if(this.combattimento.risultato != "In corso"){
+                this.newAttacco = false;
+              }     
+            }
+          )
+           //console.log(`${id}`);
+        });
+        this.listAttacchi();
+        this.listRisultati();
+    }
+
   }
 
   listAttacchi(){

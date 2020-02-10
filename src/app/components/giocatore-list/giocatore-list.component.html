@@ -1,8 +1,11 @@
 <h1>
     Giocatori:
 </h1>
-
-<table class="table">
+<ul *ngIf="!partitaCreata">
+    <h3>Prima crea una partita</h3>
+</ul>
+<ul *ngIf="partitaCreata">
+<table class="table" >
     <thead class="thead-dark">
         <tr>
             <th>Id </th>
@@ -35,39 +38,4 @@
     </div>
     <button type="submit" class="btn btn-primary" (click)="addGiocatore()">Aggiungi giocatore</button>
 </form>
-
-<form>
-
-    <table>
-        
-        <td>
-            <tr>
-                <div class="form-group">
-                <label for="nomeParita">Nome Partita</label>
-                <input type="text" class="form-control" placeholder="nome della partita" [(ngModel)]="partita.nome" name="nomePartita"/> 
-              </div>
-            </tr>
-        </td>
-        <td>
-            <tr>   
-                <div class="form-group">
-                    <label for="modalita">Modalita</label>
-                    <input type="text" class="form-control" placeholder="modalita di gioco" [(ngModel)]="modalitaNome" name="modalita"/> 
-                </div>
-            </tr>
-        </td>
-        <td>
-            <tr>   
-                <div class="form-group">
-                    <label for="modalita">RIMESCOLI </label>
-                    <input type="text" class="form-control" placeholder="modalita di gioco" [(ngModel)]="nRimescoli" name="rimescoli"/> 
-                </div>
-            </tr>
-        </td>
-    </table>
-
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary" (click)="addPartita()">Nuova Partita</button>
-    </div>
-  
-  </form>
+</ul>

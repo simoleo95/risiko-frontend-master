@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CarteTerritorio } from 'src/app/common/carte-territorio';
 import { FullResponceService } from 'src/app/services/full-responce.service';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 @Component({
   selector: 'app-carte',
@@ -10,12 +11,18 @@ import { FullResponceService } from 'src/app/services/full-responce.service';
 export class CarteComponent implements OnInit {
 
   carteTerritorio: CarteTerritorio[];
+  partitaCreata : boolean = false;
   constructor(
-    private carteService: FullResponceService
+    private carteService: FullResponceService,
+    private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
-    this.listCarteTerritorio();
+    if(this.localStorageService.retriveInfo()){
+      this.listCarteTerritorio();
+      this.partitaCreata = true;
+    }
+    
   }
 
   listCarteTerritorio(){

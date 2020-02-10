@@ -12,6 +12,7 @@ import { GiroService } from 'src/app/services/giro.service';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
 import { Giocatore } from 'src/app/common/giocatore';
 import { Observable } from 'rxjs';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 
 @Component({
@@ -40,6 +41,7 @@ export class RegistroCombattimentoComponent implements OnInit {
   isCollapsed = false;
   boolCarta = true;
   boolComb=true;
+  partitaCreata : boolean = false;
 
 
 
@@ -48,13 +50,16 @@ export class RegistroCombattimentoComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private combattimentoService: CombattimentoService,
-    private giroService: GiroService) { }
+    private giroService: GiroService,
+    private localStorageService: LocalStorageService) { }
     
 
   ngOnInit() {
+    if(this.localStorageService.retriveInfo()){
     this.getGiocatoreTurno();
     this.listCombattimenti();
-    
+    this.partitaCreata = true;
+    }
   }
 
   

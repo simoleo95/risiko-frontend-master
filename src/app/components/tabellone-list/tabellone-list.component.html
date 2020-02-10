@@ -1,6 +1,10 @@
 <h1>Tabellone</h1>
 
+<ul>
+    <h3 *ngIf="!partitaCreata">prima crea una partita</h3>
+</ul>
 
+<ul *ngIf="partitaCreata">
 <h3>Territori</h3>
 <table class="table">
     <thead class="thead-dark">
@@ -38,5 +42,5 @@
     </div>
     <button type="submit" class="btn btn-primary" (click)="addTerritorio()">Aggiungi territorio</button>
 </form>
-
+</ul>
 

@@ -1,12 +1,15 @@
  <h1>
     Combattimenti:
 </h1>
+
+<ul *ngIf="!partitaCreata">
+  <h3>prima crea una partita</h3>
+</ul>
+
+<ul *ngIf="partitaCreata">
 <ul *ngIf="tComplete">
   <h3>Giocatore in turno: {{giocatoreTurno.turno.nomeGiocatore}}</h3>
 </ul>
-
-
-
 
 <table class="table">
     <thead class="thead-dark">
@@ -68,3 +71,4 @@
 
 </form>
 
+</ul>

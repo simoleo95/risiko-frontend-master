@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { Partita } from 'src/app/common/partita';
 import { Modalita } from 'src/app/common/modalita';
 import { MapOperator } from 'rxjs/internal/operators/map';
+import { LocalStorageService } from 'src/app/services/local-storage.service';
 
 
 @Component({
@@ -23,13 +24,18 @@ export class GiocatoreListComponent implements OnInit {
   modalitaNome : String;
   mod = new Modalita();
   nRimescoli: number;
-  constructor(private giocatoreService: GiocatoreService,private router: Router) {
+  partitaCreata:boolean = false;
+  constructor(private giocatoreService: GiocatoreService,private router: Router,
+    private localStorageService: LocalStorageService) {
     
   }
 
   ngOnInit() {
+    if(this.localStorageService.retriveInfo()){
     this.listGiocatori();
+    this.partitaCreata = true;
   }
+ }
  
 
   listGiocatori(){
@@ -64,15 +70,20 @@ export class GiocatoreListComponent implements OnInit {
   }
 
   addPartita():void{
+    /*
     this.mod.nrimescoli=this.nRimescoli;
-    console.log(this.nRimescoli)
     this.mod.nomeM = this.modalitaNome
     this.partita.modalitaB = this.mod;
+  
     this.giocatoreService.addAPI(this.partita,"/addPartita")
     .subscribe(
       (responce) => {console.log(responce)}, (error) => {
       console.log(error);
     }); 
+    */
+    this.partitaCreata = true;
+    this.ngOnInit(); 
   }
+
 
 }
