@@ -91,21 +91,25 @@ export class AttaccoComponent implements OnInit {
   }
 
   addBattaglia(){
+    console.log(this.attacco)
+    
     if(this.pedineAttaccante >= this.combattimento.territorioAttaccante.npedine)
     {
       alert("Pedine non valido")
     }
     else{
       this.attacco.nregola = this.selectedRegola;
-      console.log(this.selectedRegola)
+
       this.attacco.pedineAttacco= this.pedineAttaccante;
       this.attacco.pedineDifesa = this.pedineDifensore;
-      console.log(this.attacco)
+      this.attacco.combattimento = this.combattimento;
+    
       this.attaccoService.addAPI(this.attacco,"/addAttacco")
       .subscribe(
         (responce) => {console.log(responce)}, (error) => {
         console.log(error);
       });
+      
     }
 
     this.ngOnInit();

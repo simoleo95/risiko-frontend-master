@@ -96,7 +96,6 @@ export class RegistroCombattimentoComponent implements OnInit {
   getGiocatoreTurno(){
     this.registroService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
       data=> {
-        console.log(data)
         this.giocatoreTurno = data;
       }
     )

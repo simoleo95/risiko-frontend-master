@@ -19,6 +19,7 @@
             <th>Territorio attaccante </th>
             <th>Territorio difensore </th>
             <th>Risultato </th>
+            <th>Giro</th>
             <th>Turno</th>
             <th></th>
             <th></th>
@@ -34,6 +35,7 @@
              <th>{{TempCombattimento.territorioAttaccante.nome}}</th>
             <th>{{TempCombattimento.territorioDifensore.nome}}</th>
             <th>{{TempCombattimento.risultato}}</th>
+            <th>{{TempCombattimento.giocatoreInTurno.giro.id}}</th>
             <th>{{TempCombattimento.giocatoreInTurno.turno.id}}</th>
             <th>
               <div *ngIf="TempCombattimento.risultato!='Concluso'">
