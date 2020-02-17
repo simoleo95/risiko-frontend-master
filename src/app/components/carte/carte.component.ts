@@ -18,8 +18,8 @@ export class CarteComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.localStorageService.retriveInfo()){
-      this.listCarteTerritorio();
+    if(this.localStorageService.retriveInfo() && this.localStorageService.getPartita()[3]!= undefined)
+      {this.listCarteTerritorio();
       this.partitaCreata = true;
     }
     

@@ -9,6 +9,7 @@ import { Modalita } from 'src/app/common/modalita';
 import { MapOperator } from 'rxjs/internal/operators/map';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { DescrittorePedina } from 'src/app/common/descrittore-pedina';
+import { Turno } from 'src/app/common/turno';
 
 
 @Component({
@@ -28,15 +29,11 @@ export class GiocatoreListComponent implements OnInit {
   partitaCreata:boolean = false;
   fineGiocatori: boolean = false;
   mazziereCreato : boolean = false;
+  turniCreato: boolean = false;
   coloreSet : String ;
-  public regole = [{
-    valore: "Casuale",
-    name: "Casuale"
-}, {
-    valore: "Giovane",
-    name: "Giovane"
-}];
-  public selectedRegola: String = this.regole[1].valore;
+  mazziere = new Giocatore();
+  nomeMazziere : String = "";
+  turni : Turno[];
 
 
   constructor(private giocatoreService: GiocatoreService,private router: Router,
@@ -51,9 +48,14 @@ export class GiocatoreListComponent implements OnInit {
     if(this.localStorageService.getPartita()[1]!=undefined)
     if(this.localStorageService.getPartita()[1].title!=0)
       this.fineGiocatori = true;
-    if(this.localStorageService.getPartita()[2]!=undefined)
+    if(this.localStorageService.getPartita()[2]!=undefined){
       this.mazziereCreato = true;
+      this.mazziere = this.localStorageService.getPartita()[2].title
+    }
+    if(this.localStorageService.getPartita()[3]!= undefined)
+      this.turniCreato = true; 
   }
+  this.getTurni()
  }
  
 
@@ -111,14 +113,60 @@ export class GiocatoreListComponent implements OnInit {
 
   getMazziere(){
     // salva in locale chi è il mazziere
-    this.giocatoreService.getAPIone('/getMazziere/'+this.selectedRegola).subscribe(
+    if(this.nomeMazziere!=""){
+      for(let g of this.giocatori){
+        if(g.nome == this.nomeMazziere){
+          this.giocatoreService.getAPIone('/getMazziere/'+this.nomeMazziere).subscribe(
+            data=> {
+              this.mazziere = data;
+              this.localStorageService.storeOnLocalStorage(data)
+              this.mazziereCreato = true;
+            },(error) => {    
+              console.log(error);
+            }
+          )
+        }
+      }
+      if(this.mazziereCreato == false)
+        alert("Giocatore non valido")
+      
+
+    }
+    else{
+      this.giocatoreService.getAPIone('/getMazziere/').subscribe(
+        data=> {
+          this.mazziere = data;
+          this.localStorageService.storeOnLocalStorage(data)
+          this.mazziereCreato = true;
+        },(error) => {    
+          console.log(error);
+        }
+      )
+    }
+
+  }
+
+  createTurni(){
+    this.giocatoreService.getAPIone('/createTurni/').subscribe(
       data=> {
+        this.turni = data;
+        this.turniCreato = true;
         this.localStorageService.storeOnLocalStorage(data)
+        console.log(data)
       },(error) => {    
         console.log(error);
       }
     )
-      this.mazziereCreato = true;
   }
 
+  getTurni(){
+    this.giocatoreService.getAPI('/getTurni/').subscribe(
+      data=> {
+        console.log(data)
+        this.turni = data;
+      },(error) => {    
+        console.log(error);
+      }
+    )
+    }
 }

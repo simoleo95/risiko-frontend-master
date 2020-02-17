@@ -22,7 +22,7 @@ export class SpostaPedineComponent implements OnInit {
   pedine1: number;
 
   ngOnInit() {
-    if(this.localStorageService.retriveInfo())
+    if(this.localStorageService.retriveInfo() && this.localStorageService.getPartita()[3]!= undefined)
       this.partitaCreata = true;
   }
 

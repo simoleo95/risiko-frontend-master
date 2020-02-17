@@ -11,6 +11,7 @@ const STORAGE_KEY = 'local_todolist';
 })
 export class LocalStorageService {
 
+
   anotherTodolist = [];
   constructor(@Inject(LOCAL_STORAGE) private storage: StorageService) { }
   public storeOnLocalStorage(taskTitle: Object): void {
@@ -33,6 +34,10 @@ export class LocalStorageService {
   public getPartita(){
       return this.storage.get(STORAGE_KEY);
       
+  }
+
+  clear() {
+    this.storage.clear();
   }
 }
 

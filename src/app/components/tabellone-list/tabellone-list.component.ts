@@ -23,7 +23,7 @@ export class TabelloneListComponent implements OnInit {
   confini: Confine[];
 
   ngOnInit() {
-    if(this.localStorageService.retriveInfo())
+    if(this.localStorageService.retriveInfo() && this.localStorageService.getPartita()[3]!= undefined)
     {
       this.partitaCreata = true;
       this.listTerritori();

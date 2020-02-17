@@ -1,6 +1,7 @@
 <h1>
     Giocatori:
 </h1>
+<h3>Mazziere : {{mazziere.nome}}</h3>
 <ul *ngIf="!partitaCreata">
     <h3>Prima crea una partita</h3>
 </ul>
@@ -27,6 +28,20 @@
             </tr>
         </tbody>
     </table>
+    <h3>Turni </h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <th>Nome </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let turno of turni">
+                <th>{{turno.nomeGiocatore}}</th>
+                
+            </tr>
+        </tbody>
+    </table>
 
     <ul *ngIf="!fineGiocatori">
         <form>
@@ -49,14 +64,10 @@
         </form>
     </ul>
     <ul *ngIf="fineGiocatori&&!mazziereCreato">
-        <p>Come determinare il mazziere: </p>
-        <igx-radio *ngFor="let regola of regole"
-        name="regola"
-        [value]="regola.valore"
-        [(ngModel)]="selectedRegola">
-        {{regola.name}}
-      </igx-radio>
-      <br>
+        <input type="text" class="form-control" placeholder="nomeMazziere" [(ngModel)]="nomeMazziere" name="nomeMazziere"/>
         <button type="submit" class="btn btn-primary" (click)="getMazziere()">Determina mazziere</button>
+    </ul>
+    <ul *ngIf="fineGiocatori&&mazziereCreato&&!turniCreato">
+        <button type="submit" class="btn btn-primary" (click)="createTurni()">Determina turno</button>
     </ul>
 </ul>

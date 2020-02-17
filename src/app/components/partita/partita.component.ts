@@ -37,16 +37,21 @@ export class PartitaComponent implements OnInit {
     this.mod.nrimescoli=this.nRimescoli;
     this.mod.nomeM = this.modalitaNome
     this.partita.modalitaB = this.mod;
-  
+
     this.giocatoreService.addAPI(this.partita,"/addPartita")
     .subscribe(
-      (responce) => {console.log(responce); this.router.navigateByUrl("giocatore-list")}, (error) => {
+      (responce) => {
+      console.log(responce); 
+      this.partitaCreata = true;
+      const newTodo = this.partita; 
+      this.localStorageService.clear()
+      this.localStorageService.storeOnLocalStorage(newTodo);
+      this.router.navigateByUrl("giocatore-list");}, (error) => {
+        alert("Errore inserimento partita")
       console.log(error);
     }); 
     
-    this.partitaCreata = true;
-    const newTodo = this.partita; 
-    this.localStorageService.storeOnLocalStorage(newTodo);
+  
   }
 
   

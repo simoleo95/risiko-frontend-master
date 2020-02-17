@@ -55,7 +55,7 @@ export class RegistroCombattimentoComponent implements OnInit {
     
 
   ngOnInit() {
-    if(this.localStorageService.retriveInfo()){
+    if(this.localStorageService.retriveInfo() && this.localStorageService.getPartita()[3]!= undefined){
     this.getGiocatoreTurno();
     this.listCombattimenti();
     this.partitaCreata = true;
@@ -113,4 +113,5 @@ export class RegistroCombattimentoComponent implements OnInit {
   }
 
 
-}
+  }
+
