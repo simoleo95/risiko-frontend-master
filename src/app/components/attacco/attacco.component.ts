@@ -73,7 +73,6 @@ export class AttaccoComponent implements OnInit {
     this.attaccoService.getAPI('/getAttacchiFromCombattimento/'+this.id$).subscribe(
       data=> {
         this.attacchi = data;
-        
       },(error) => {    
         console.log(error);
       }

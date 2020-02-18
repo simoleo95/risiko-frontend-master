@@ -12,12 +12,13 @@ import { AttaccoComponent } from './components/attacco/attacco.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LancioComponent } from './components/lancio/lancio.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IgxRadioModule } from 'igniteui-angular';
+import { IgxRadioModule, IgxCheckboxModule } from 'igniteui-angular';
 import { CarteComponent } from './components/carte/carte.component';
 import { SpostaPedineComponent } from './components/sposta-pedine/sposta-pedine.component';
 import { PartitaComponent } from './components/partita/partita.component';
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { LocalStorageService } from './services/local-storage.service';
+import { BonusComponent } from './components/bonus/bonus.component';
 
 
 const appRoutes: Routes = [
@@ -35,6 +36,7 @@ const appRoutes: Routes = [
     CarteComponent,
     SpostaPedineComponent,
     PartitaComponent,
+    BonusComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,6 +45,7 @@ const appRoutes: Routes = [
     AppRoutingModule, 
     BrowserAnimationsModule,
     IgxRadioModule,
+    IgxCheckboxModule,
     StorageServiceModule
 
   ],
