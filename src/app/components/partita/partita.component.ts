@@ -25,12 +25,19 @@ export class PartitaComponent implements OnInit {
 
   ngOnInit() {
 
-    if(this.localStorageService.retriveInfo())
-    {
-      this.partita = this.localStorageService.getPartita()[0].title;
-      this.partitaCreata = true;
-    }
+    this.giocatoreService.getAPIone('/getStatoPartita').subscribe(
+      data=> {
+        if(data>=1){
+          this.partitaCreata = true;
+          this.giocatoreService.getAPIone('/getPartita').subscribe(
+            data=> {
+              this.mod = data.modalitaB;
+              this.partita = data;
+            })
+
+        }
       
+    })
   }
 
   addPartita(){
@@ -41,11 +48,9 @@ export class PartitaComponent implements OnInit {
     this.giocatoreService.addAPI(this.partita,"/addPartita")
     .subscribe(
       (responce) => {
-      console.log(responce); 
       this.partitaCreata = true;
-      const newTodo = this.partita; 
-      this.localStorageService.clear()
-      this.localStorageService.storeOnLocalStorage(newTodo);
+
+
       this.router.navigateByUrl("giocatore-list");}, (error) => {
         alert("Errore inserimento partita")
       console.log(error);

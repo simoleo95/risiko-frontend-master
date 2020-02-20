@@ -1,37 +1,68 @@
 <h1>Sposta pedine</h1>
 <ul *ngIf="!partitaCreata">
+
     <h3>prima crea una partita</h3>
 </ul>
 <ul *ngIf="partitaCreata">
-<form>
-    <table>
-        <td>
-            <tr>
-                <div class="form-group">
-                <label for="territorio1">Territorio 1</label>
-                <input type="text" class="form-control" placeholder="Territorio 1" [(ngModel)]="territorio1.nome" name="territorio1"/> 
-              </div>
-            </tr>
-            <tr>    
-                <div class="form-group">
-                    <label for="territorio2">Territorio 2</label>
-                    <input type="text" class="form-control" placeholder="Territorio 2" [(ngModel)]="territorio2.nome" name="territorio2"/> 
-              </div>
-            </tr>
-        </td>
-        <td>
-            <tr>   
-                <div class="form-group">
-                    <label for="pedine1">Pedine</label>
-                    <input type="text" class="form-control" placeholder="Pedine" [(ngModel)]="pedine1" name="pedine1"/> 
-                </div>
-            </tr>
-        </td>
-    </table>
+    <ul *ngIf="tComplete">
+        <h3>Giocatore in turno: {{giocatoreTurno.turno.nomeGiocatore}}</h3>
+    </ul>
 
-    <div class="form-group">
-      <button type="submit" class="btn btn-primary" (click)="spostaPedine()">Sposta</button>
-    </div>
-  
-  </form>
+    <ul *ngIf="!tSpostaPedine">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                    <td>Nome</td>
+                    <td>n pedine</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tempTerritorio of territori" >
+                    <td>{{tempTerritorio.nome}}</td>
+                    <td>
+                        <input type="number" class="form-control" placeholder="pedina " [(ngModel)]="tempTerritorio.npedine" name="territorio"/> 
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <ul>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary" (click)="inserisciPedine()">Inserisci pedine</button>
+            </div>
+        </ul>
+    </ul>
+
+
+    <form *ngIf="tSpostaPedine"> 
+        <table>
+            <td>
+                <tr>
+                    <div class="form-group">
+                        <label for="territorio1">Territorio 1</label>
+                        <input type="text" class="form-control" placeholder="Territorio 1" [(ngModel)]="territorio1.nome" name="territorio1"/> 
+                    </div>
+                </tr>
+                <tr>    
+                    <div class="form-group">
+                        <label for="territorio2">Territorio 2</label>
+                        <input type="text" class="form-control" placeholder="Territorio 2" [(ngModel)]="territorio2.nome" name="territorio2"/> 
+                    </div>
+                </tr>
+            </td>
+            <td>
+                <tr>   
+                    <div class="form-group">
+                        <label for="pedine1">Pedine</label>
+                        <input type="text" class="form-control" placeholder="Pedine" [(ngModel)]="pedine1" name="pedine1"/> 
+                    </div>
+                </tr>
+            </td>
+        </table>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" (click)="spostaPedine()">Sposta</button>
+        </div>
+    </form>
 </ul>
+
+
+

@@ -3,16 +3,14 @@ import { Combattimento } from 'src/app/common/combattimento';
 import { Territorio } from 'src/app/common/territorio';
 import { TabelloneListComponent } from '../tabellone-list/tabellone-list.component';
 import { RegistroCombattimentoService } from 'src/app/services/registro-combattimento.service';
-import { AttaccoService } from 'src/app/services/attacco.service';
 import { Attacco } from 'src/app/common/attacco';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CombattimentoService } from 'src/app/services/combattimento.service';
 import { delay, finalize } from 'rxjs/operators';
-import { GiroService } from 'src/app/services/giro.service';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
 import { Giocatore } from 'src/app/common/giocatore';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { FullResponceService } from 'src/app/services/full-responce.service';
 
 
 @Component({
@@ -46,20 +44,28 @@ export class RegistroCombattimentoComponent implements OnInit {
 
 
   constructor(private registroService: RegistroCombattimentoService,
-    private attaccoService: AttaccoService,
+    private attaccoService: FullResponceService,
     private router: Router,
     private route: ActivatedRoute,
-    private combattimentoService: CombattimentoService,
-    private giroService: GiroService,
+    private combattimentoService: FullResponceService,
+    private giroService: FullResponceService,
     private localStorageService: LocalStorageService) { }
     
 
   ngOnInit() {
-    if(this.localStorageService.retriveInfo() && this.localStorageService.getPartita()[3]!= undefined){
-    this.getGiocatoreTurno();
-    this.listCombattimenti();
-    this.partitaCreata = true;
-    }
+    this.combattimentoService.getAPIone('/getStatoPartita').subscribe(
+      data=> {
+        if(data == 6)
+        {
+          this.getGiocatoreTurno();
+          this.listCombattimenti();
+          this.partitaCreata = true;
+        }
+      },(error) => {    
+        console.log(error);
+      }
+    )
+
   }
 
   

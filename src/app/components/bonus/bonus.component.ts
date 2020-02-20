@@ -2,8 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { FullResponceService } from 'src/app/services/full-responce.service';
 import { CarteTerritorio } from 'src/app/common/carte-territorio';
-import { finalize } from 'rxjs/operators';
+import { finalize, map } from 'rxjs/operators';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
+import { Territorio } from 'src/app/common/territorio';
+import { Regola } from 'src/app/common/regola';
+import { Bonus } from 'src/app/common/bonus';
+import { BoolPartita } from 'src/app/common/bool-partita';
+
 
 
 @Component({
@@ -14,10 +19,50 @@ import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
 export class BonusComponent implements OnInit {
 
   carteTerritorio: CarteTerritorio[];
-  partitaCreata : boolean = false;
   tComplete = false;
   giocatoreTurno: GiocatoreTurno = new GiocatoreTurno();
+  territori: Territorio[];
+  out : String[];
+  listBonus : Bonus[] = [];
+  bool : BoolPartita = new BoolPartita()
 
+  public regoleT =  [{
+    valore: 1,
+    check: false,
+    name: "n territori"
+}, {
+    valore: 2,
+    check: false,
+    name: "continenti"
+},
+{
+  valore: 3,
+  check: false,
+  name: "valore"
+}];
+
+
+public regoleC = [{
+  valore: 1,
+  check: false,
+  name: "tris diverso"
+}, {
+  valore: 2,
+  check: false,
+  name: "tris uguale"
+},
+{
+valore: 3,
+check: false,
+name: "tris con jolly"
+}];
+
+  onChkChangeT(regolaT) {
+    this.regoleT[regolaT.valore-1].check = !this.regoleT[regolaT.valore-1].check;
+  } 
+  onChkChangeC(regolaC) {
+    this.regoleC[regolaC.valore-1].check = !this.regoleC[regolaC.valore-1].check;
+  } 
 
 
   constructor(
@@ -26,31 +71,100 @@ export class BonusComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    if(this.localStorageService.retriveInfo() && this.localStorageService.getPartita()[3]!= undefined)
-    {
-      this.partitaCreata = true;
-    }
     
-    this.listCarteTerritorio();
+    this.bonusService.getAPIone('/getStatoPartita').subscribe(
+      data=> {
+        if(data >= 4)
+        {
+          this.listCarteTerritorio();
+          this.bool.partitaCreata = true;
+          
+          this.getGiocatoreTurno();
+          this.listTerritori();
+        
+        }
+        if(data >= 5 ){
+          this.bool.bonusCreato = true;
+          this.getBonus();
+        }
+
+      },(error) => {    
+        console.log(error);
+      }
+    )
   }
 
   
-  listCarteTerritorio(){
+  getGiocatoreTurno(){
+    this.bonusService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
+      data=> {
+        this.giocatoreTurno = data;
+
+      }
+    )
+  }
+
+listCarteTerritorio(){
+
+  this.bonusService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
+    data=> {
+      this.giocatoreTurno = data;
+      this.bonusService.getAPI('/getCarteTerritorio/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
+        data=> {
+        this.carteTerritorio = data;
+    }
+    )
+    }
+  )
+
+}
+
+  listTerritori(){
 
     this.bonusService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
       data=> {
         this.giocatoreTurno = data;
-            this.bonusService.getAPI('/getCarteTerritorio/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
-            data=> {
-            console.log(data)
-            this.carteTerritorio = data;
-      }
+        this.bonusService.getAPI('/getTerritoriGiocatore/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
+          data=> {
+          this.territori = data;
+    }
     )
+  
       }
     )
   }
 
+  addBonus(){
+    
+    this.out=[""];
+ 
+    for(let a of this.regoleT){
+      if (a.check==true){
+        this.out.push(a.name)
+      }
+    }
+    for(let a of this.regoleC){
+      if (a.check==true){
+        this.out.push(a.name)
+      }
+    }
 
+    this.bonusService.addAPI(this.out, '/addBonus/')    .subscribe(
+      (responce) => {console.log(responce); this.bool.bonusCreato = true}, (error) => {
+      console.log(error);
+    });
+    this.bool.bonusCreato=true;
+  }
    
-
+  getBonus(){
+    this.bonusService.getAPIone('/getBonus').subscribe(
+      (data)=>{
+        
+        for(let d of data)
+          this.listBonus.push(new Bonus(d))
+        console.log(this.listBonus)   
+      }
+    )
+  }
+  
 }

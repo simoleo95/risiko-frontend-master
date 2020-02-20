@@ -90,8 +90,7 @@ export class AttaccoComponent implements OnInit {
   }
 
   addBattaglia(){
-    console.log(this.attacco)
-    
+   
     if(this.pedineAttaccante >= this.combattimento.territorioAttaccante.npedine)
     {
       alert("Pedine non valido")

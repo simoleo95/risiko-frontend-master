@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AttaccoService } from 'src/app/services/attacco.service';
 import { Lancio } from 'src/app/common/lancio';
+import { FullResponceService } from 'src/app/services/full-responce.service';
 
 @Component({
   selector: 'app-lancio',
@@ -14,7 +14,7 @@ export class LancioComponent implements OnInit {
   lanci: Lancio[];
   constructor(    
     private route: ActivatedRoute,
-    private attaccoService: AttaccoService,
+    private attaccoService: FullResponceService,
     private router: Router) { }
 
   ngOnInit() {

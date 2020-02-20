@@ -24,7 +24,7 @@
             <th>{{tempTerritorio.nome}}</th>
             <th>{{tempTerritorio.valore}}</th>   
             <th>{{tempTerritorio.npedine}}</th> 
-            <th>{{tempTerritorio.giocatore.nome}}</th>   
+            <th *ngIf="tempTerritorio.giocatore!==null">{{tempTerritorio.giocatore.nome}}</th>   
  
         </tr>
     </tbody>

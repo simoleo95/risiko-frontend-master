@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { FullResponceService } from './full-responce.service';
 import { HttpClient } from '@angular/common/http';
-import { CombattimentoService } from './combattimento.service';
 import { Territorio } from '../common/territorio';
 import { Combattimento } from '../common/combattimento';
-import { TabelloneService } from 'src/app/services/tabellone.service';
 import { Confine } from '../common/confine';
 
 @Injectable({
@@ -19,21 +17,21 @@ export class RegistroCombattimentoService extends FullResponceService{
   private _confini = new Array<Confine>();
 
   constructor(private httpClient:HttpClient, 
-    private tabelloneService: TabelloneService, private confineService: FullResponceService){
+    private tabelloneService: FullResponceService, private confineService: FullResponceService){
     super(httpClient)
   }
 
   public addCombattimento(terrA:Territorio, terrD:Territorio, nomeGiocatoreTurno:String){
  
         this.url = '/getTerritorioNome/'+terrA.nome
-        this.tabelloneService.getNome(this.url).subscribe(
+        this.tabelloneService.getAPIone(this.url).subscribe(
           data=> {
             this._territorioA = data;
             // il territorio deve essere del giocatore in turno 
             if(this._territorioA.giocatore.nome == nomeGiocatoreTurno)
             {
               this.url = '/getTerritorioNome/'+terrD.nome
-              this.tabelloneService.getNome(this.url).subscribe(
+              this.tabelloneService.getAPIone(this.url).subscribe(
                 data=> {
                   this._territorioD = data;
                   this.confineService.getAPI("/getVicini/"+this._territorioA.id).subscribe(

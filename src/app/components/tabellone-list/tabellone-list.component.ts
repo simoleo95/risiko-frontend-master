@@ -1,10 +1,10 @@
 import { Component, OnInit, HostBinding, Input, Output } from '@angular/core';
 import { Tabellone } from 'src/app/common/tabellone';
-import { TabelloneService } from 'src/app/services/tabellone.service';
 import { Territorio } from 'src/app/common/territorio';
 import { Confine } from 'src/app/common/confine';
 import { RegistroCombattimentoComponent } from '../registro-combattimento/registro-combattimento.component';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { FullResponceService } from 'src/app/services/full-responce.service';
 
 @Component({
   selector: 'app-tabellone-list',
@@ -13,7 +13,7 @@ import { LocalStorageService } from 'src/app/services/local-storage.service';
 })
 export class TabelloneListComponent implements OnInit {
   
-  constructor(private tabelloneService: TabelloneService,
+  constructor(private tabelloneService: FullResponceService,
     private localStorageService: LocalStorageService,
     ) { }
 
@@ -23,12 +23,19 @@ export class TabelloneListComponent implements OnInit {
   confini: Confine[];
 
   ngOnInit() {
-    if(this.localStorageService.retriveInfo() && this.localStorageService.getPartita()[3]!= undefined)
-    {
-      this.partitaCreata = true;
-      this.listTerritori();
-    }
-    
+
+    this.tabelloneService.getAPIone('/getStatoPartita').subscribe(
+      data=> {
+           if(data == 6)
+        {      
+          this.partitaCreata = true;
+          this.listTerritori();
+        }
+      },(error) => {    
+        console.log(error);
+      }
+    )
+ 
 
   }
 

@@ -1,7 +1,6 @@
 import { Injectable, Inject } from '@angular/core';
 import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
-import { Partita } from '../common/partita';
-import { partition } from 'rxjs/operators';
+
 
 const STORAGE_KEY = 'local_todolist';
 

@@ -19,6 +19,9 @@ import { PartitaComponent } from './components/partita/partita.component';
 import { StorageServiceModule } from 'ngx-webstorage-service';
 import { LocalStorageService } from './services/local-storage.service';
 import { BonusComponent } from './components/bonus/bonus.component';
+import { MatSliderModule } from '@angular/material/slider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
 
 
 const appRoutes: Routes = [
@@ -46,6 +49,8 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     IgxRadioModule,
     IgxCheckboxModule,
+    MatSliderModule,
+    MatCheckboxModule,
     StorageServiceModule
 
   ],

@@ -2,10 +2,10 @@
     Giocatori:
 </h1>
 <h3>Mazziere : {{mazziere.nome}}</h3>
-<ul *ngIf="!partitaCreata">
+<ul *ngIf="!bool.partitaCreata">
     <h3>Prima crea una partita</h3>
 </ul>
-<ul *ngIf="partitaCreata">
+<ul *ngIf="bool.partitaCreata">
     <table class="table" >
         <thead class="thead-dark">
             <tr>
@@ -43,7 +43,7 @@
         </tbody>
     </table>
 
-    <ul *ngIf="!fineGiocatori">
+    <ul *ngIf="!bool.fineGiocatori">
         <form>
             <div class="form-group">
                 <label for="nomeGiocatore">Nome giocatore</label>
@@ -63,11 +63,11 @@
             <button type="submit" class="btn btn-primary" (click)="endGiocatori()">Fine Giocatori</button>
         </form>
     </ul>
-    <ul *ngIf="fineGiocatori&&!mazziereCreato">
+    <ul *ngIf="bool.fineGiocatori&&!bool.mazziereCreato">
         <input type="text" class="form-control" placeholder="nomeMazziere" [(ngModel)]="nomeMazziere" name="nomeMazziere"/>
-        <button type="submit" class="btn btn-primary" (click)="getMazziere()">Determina mazziere</button>
+        <button type="submit" class="btn btn-primary" (click)="setMazziere()">Determina mazziere</button>
     </ul>
-    <ul *ngIf="fineGiocatori&&mazziereCreato&&!turniCreato">
+    <ul *ngIf="bool.fineGiocatori&&bool.mazziereCreato&&!bool.turniCreato">
         <button type="submit" class="btn btn-primary" (click)="createTurni()">Determina turno</button>
     </ul>
 </ul>

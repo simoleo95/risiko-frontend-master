@@ -3,22 +3,25 @@
     <h3>prima crea una partita</h3>
 </ul>
 <ul *ngIf="partitaCreata">
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <td>Id</td>
-            <td>Nome</td>
-            <td>Simbolo</td>
-            <td>Possessore</td>
-        </tr>
-    </thead>
-    <tbody>
-        <tr *ngFor="let tempCarta of carteTerritorio" >
-            <td>{{tempCarta.id}}</td>
-            <td>{{tempCarta.nome}}</td>
-            <td>{{tempCarta.simbolo}}</td>
-            <td *ngIf="tempCarta.giocatore!==null">{{tempCarta.giocatore.nome}}</td>
-        </tr>
-    </tbody>
-</table>
+    <ul *ngIf="tComplete">
+        <table class="table" >
+            <thead class="thead-dark">
+                <tr>
+                    <td>Id</td>
+                    <td>Nome</td>
+                    <td>Simbolo</td>
+                    <td>Possessore</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tempCarta of carteTerritorio" >
+                    <td>{{tempCarta.id}}</td>
+                    <td>{{tempCarta.nome}}</td>
+                    <td>{{tempCarta.simbolo}}</td>
+                    <td *ngIf="tempCarta.giocatore!==null">{{tempCarta.giocatore.nome}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+
 </ul>

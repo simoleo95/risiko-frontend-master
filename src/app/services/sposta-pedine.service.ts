@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { FullResponceService } from './full-responce.service';
 import { HttpClient } from '@angular/common/http';
 import { Territorio } from '../common/territorio';
-import { ConfineService } from './confine.service';
-import { Confine } from '../common/confine';
 import { GiocatoreTurno } from '../common/giocatore-turno';
 
 @Injectable({
@@ -16,7 +14,7 @@ export class SpostaPedineService extends FullResponceService{
   giocaToreTurno : GiocatoreTurno = new GiocatoreTurno();
   constructor(httpClient:HttpClient,
     private territorioService: FullResponceService,
-    private confineService: ConfineService) {
+    private confineService: FullResponceService) {
     super(httpClient);
    }
 

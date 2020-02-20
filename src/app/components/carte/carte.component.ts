@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CarteTerritorio } from 'src/app/common/carte-territorio';
 import { FullResponceService } from 'src/app/services/full-responce.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
+import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-carte',
@@ -12,23 +14,39 @@ export class CarteComponent implements OnInit {
 
   carteTerritorio: CarteTerritorio[];
   partitaCreata : boolean = false;
+  giocatoreTurno = new GiocatoreTurno;
+  tComplete = false;
   constructor(
     private carteService: FullResponceService,
     private localStorageService: LocalStorageService
   ) { }
 
   ngOnInit() {
-    if(this.localStorageService.retriveInfo() && this.localStorageService.getPartita()[3]!= undefined)
-      {this.listCarteTerritorio();
-      this.partitaCreata = true;
-    }
+    this.carteService.getAPIone('/getStatoPartita').subscribe(
+      data=> {
+        if(data == 6)
+        {
+          this.listCarteTerritorio();
+          this.partitaCreata = true;
+        }
+      },(error) => {    
+        console.log(error);
+      }
+    )
     
   }
 
+
   listCarteTerritorio(){
-    this.carteService.getAPI('/getCarteTerritorio').subscribe(
+    this.carteService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
       data=> {
-        this.carteTerritorio = data;
+        this.giocatoreTurno = data;
+        this.carteService.getAPI('/getCarteTerritorio/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
+          data=> {
+            this.carteTerritorio = data;
+          }
+        )
+
       }
     )
   }

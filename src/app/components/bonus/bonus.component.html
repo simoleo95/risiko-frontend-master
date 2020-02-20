@@ -1,30 +1,43 @@
-<ul *ngIf="!partitaCreata">
+<ul *ngIf="!bool.partitaCreata">
     <h3>Prima crea una nuova partita</h3>
 </ul>
 
-<ul>
-    <h5>Scegli il bonus da usare in partita</h5>
-</ul>
 
-
-<ul *ngIf="partitaCreata">
+<ul *ngIf="bool.partitaCreata&&bool.bonusCreato">
+    <h5>Bonus scelti: </h5>
     <table class="table">
     <thead class="thead-dark">
         <tr>
-            <td>Id</td>
             <td>Nome</td>
-            <td>Simbolo</td>
-            <td>Possessore</td>
         </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let tempCarta of carteTerritorio" >
-            <td>{{tempCarta.id}}</td>
-            <td>{{tempCarta.nome}}</td>
-            <td>{{tempCarta.simbolo}}</td>
-            <td *ngIf="tempCarta.giocatore!==null">{{tempCarta.giocatore.nome}}</td>
+        <tr *ngFor="let tempBonus of listBonus" >
+            <td>{{tempBonus.nome}}</td>
         </tr>
     </tbody>
 </table>
+</ul>
+
+
+<ul *ngIf="bool.partitaCreata&&!bool.bonusCreato">
+    <h5>Scegli la modalita per il bonus dei territori: </h5>
+    <br>
+    <mat-checkbox *ngFor="let regolaT of regoleT"
+    name="regolaT"
+    [value]="regolaT.check"
+    (change)="onChkChangeT(regolaT)">
+    {{regolaT.name}}
+</mat-checkbox>
+<h5>Scegli la modalita per il bonus delle carte: </h5>
+<br>
+<mat-checkbox *ngFor="let regolaC of regoleC"
+    name="regolaC"
+    [value]="regolaC.check"
+    (change)="onChkChangeC(regolaC)">
+    {{regolaC.name}}
+</mat-checkbox>
+<br>
+<button type="submit" class="btn btn-primary" (click)="addBonus()">Set bonus</button>
 </ul>
 
