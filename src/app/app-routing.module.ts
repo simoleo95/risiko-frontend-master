@@ -24,7 +24,7 @@ const routes: Routes = [
   {path: 'partita', component :PartitaComponent},
   {path: 'bonus', component: BonusComponent},
 
-  { path: '',  redirectTo: '/tabellone', pathMatch: 'full' },
+  { path: '',  redirectTo: '/partita', pathMatch: 'full' },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

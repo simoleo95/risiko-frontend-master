@@ -11,6 +11,7 @@ import { Giocatore } from 'src/app/common/giocatore';
 import { Observable } from 'rxjs';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { FullResponceService } from 'src/app/services/full-responce.service';
+import { StatoService } from 'src/app/services/stato.service';
 
 
 @Component({
@@ -49,22 +50,22 @@ export class RegistroCombattimentoComponent implements OnInit {
     private route: ActivatedRoute,
     private combattimentoService: FullResponceService,
     private giroService: FullResponceService,
-    private localStorageService: LocalStorageService) { }
+    private localStorageService: LocalStorageService,
+    private statoService: StatoService) { }
     
 
-  ngOnInit() {
-    this.combattimentoService.getAPIone('/getStatoPartita').subscribe(
-      data=> {
-        if(data == 6)
+  async ngOnInit() {
+
+    let stato = (await this.statoService.getStato());
+    if(stato<6)
+    await this.statoService.setOperazioni(6)
+ 
+        if(stato >= 6)
         {
           this.getGiocatoreTurno();
           this.listCombattimenti();
           this.partitaCreata = true;
         }
-      },(error) => {    
-        console.log(error);
-      }
-    )
 
   }
 
@@ -109,7 +110,7 @@ export class RegistroCombattimentoComponent implements OnInit {
 
   assegnaCarta(giocatore: Giocatore){
     console.log(giocatore)
-    this.attaccoService.addAPI(giocatore,"/assegnaCarta")
+    this.attaccoService.addAPI(giocatore,"/consegnaCartaPerCombattimento")
     .subscribe(
       (responce) => {console.log(responce)}, (error) => {
       console.log(error);

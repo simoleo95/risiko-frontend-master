@@ -3,7 +3,8 @@
     <h3>prima crea una partita</h3>
 </ul>
 <ul *ngIf="partitaCreata">
-    <ul *ngIf="tComplete">
+    <ul *ngIf="tComplete&&carteComplete">
+        <h5>Carte Territori del giocatore</h5>
         <table class="table" >
             <thead class="thead-dark">
                 <tr>
@@ -22,6 +23,67 @@
                 </tr>
             </tbody>
         </table>
+        <br>
+        <h5>Carta obiettivo del giocatore</h5>
+        <table class="table" >
+            <thead class="thead-dark">
+                <tr>
+                    <td>Id</td>
+                    <td>Nome</td>
+                    <td>Descrizione</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{cartaObiettivo.id}}</td>
+                    <td>{{cartaObiettivo.nome}}</td>
+                    <td>{{cartaObiettivo.descrizione}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </ul>
+  <ul *ngIf="!carteComplete"> 
+        <h5>Carte Obiettivo</h5>
+        <table class="table" >
+            <thead class="thead-dark">
+                <tr>
+                    <td>Id</td>
+                    <td>Nome</td>
+                    <td>Descrizione</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tempCarta of carteObiettivo" >
+                    <td>{{tempCarta.id}}</td>
+                    <td>{{tempCarta.nome}}</td>
+                    <td>{{tempCarta.descrizione}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Carte Territorio</h5>
+        <table class="table" >
+            <thead class="thead-dark">
+                <tr>
+                    <td>Id</td>
+                    <td>Nome</td>
+                    <td>Simbolo</td>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let tempCarta of carteTerritorio" >
+                    <td>{{tempCarta.id}}</td>
+                    <td>{{tempCarta.nome}}</td>
+                    <td>{{tempCarta.simbolo}}</td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <button *ngIf="jolly==0" type="submit" class="btn btn-primary" (click)="togliJolly()">Togli jolly</button>
+        <br>
+        <button type="submit" class="btn btn-primary" (click)="assegnaCarte()">Assegna carte </button>
+    
+    
+    
     </ul>
 
 </ul>

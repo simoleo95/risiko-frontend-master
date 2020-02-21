@@ -10,6 +10,7 @@ import { DescrittorePedina } from 'src/app/common/descrittore-pedina';
 import { Turno } from 'src/app/common/turno';
 import { FullResponceService } from 'src/app/services/full-responce.service';
 import { BoolPartita } from 'src/app/common/bool-partita';
+import { StatoService } from 'src/app/services/stato.service';
 
 
 @Component({
@@ -34,35 +35,35 @@ export class GiocatoreListComponent implements OnInit {
   turni : Turno[];
 
 
-  constructor(private giocatoreService: FullResponceService,private router: Router,
+  constructor(private giocatoreService: FullResponceService,
+    private router: Router,
+    private statoService: StatoService
+
     ) {
     
   }
 
-  ngOnInit() {
- 
-    this.giocatoreService.getAPIone('/getStatoPartita').subscribe(
-      data=> {
-        if(data >= 1){
+  async ngOnInit() {
+    let stato = (await this.statoService.getStato());
+    if(stato<1)
+    await this.statoService.setOperazioni(1)
+        if(stato >= 1){
           this.listGiocatori();
           this.bool.partitaCreata = true;
         }
-        if(data >= 2){
+        if(stato >= 2){
           this.bool.fineGiocatori = true;
         }
-        if(data >= 3){
+        if(stato >= 3){
           this.bool.mazziereCreato = true;
           this.getMazziere();
         }
           
-        if(data >= 4){
+        if(stato >= 4){
           this.bool.turniCreato = true;
           this.getTurni();
+
         }
-      },(error) => {    
-      }
-    )
-    
  }
  
 

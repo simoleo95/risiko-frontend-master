@@ -23,7 +23,7 @@
                 <th>{{giocatore.eta}}</th>   
                 <th>{{giocatore.descrittorePedina.colore}}</th>   
 
-                <th><button type="button" class="btn btn-outline-danger" (click)="deleteGiocatore(giocatore.id)">Elimina</button>
+                <th *ngIf="!bool.fineGiocatori"><button type="button" class="btn btn-outline-danger" (click)="deleteGiocatore(giocatore.id)">Elimina</button>
                 </th>
             </tr>
         </tbody>

@@ -30,7 +30,7 @@ export class SpostaPedineService extends FullResponceService{
             this.territorioService.getAPIone('/getGiocatoreTurno/').subscribe(
               data=> {
                 this.giocaToreTurno = data;
-              
+                
                 if(this.giocaToreTurno.turno.nomeGiocatore==this.terr1.giocatore.nome && 
                   this.giocaToreTurno.turno.nomeGiocatore==this.terr2.giocatore.nome)
                 {
@@ -38,10 +38,8 @@ export class SpostaPedineService extends FullResponceService{
                   {
                   this.territorioService.getAPI('/areVicini/'+this.terr1.id+"/"+this.terr2.id).subscribe(
                   data=> {
-                    console.log(data)
                     this.territorioService.getAPI('/spostaPedine/'+this.terr1.id+"/"+this.terr2.id+"/"+pedine).subscribe(
                       data=> {
-                        console.log(data)
                       }
                       )
                   }

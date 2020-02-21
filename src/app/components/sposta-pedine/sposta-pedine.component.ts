@@ -5,6 +5,8 @@ import { SpostaPedineService } from 'src/app/services/sposta-pedine.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { finalize } from 'rxjs/operators';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
+import { CarteTerritorio } from 'src/app/common/carte-territorio';
+import { StatoService } from 'src/app/services/stato.service';
 
 @Component({
   selector: 'app-sposta-pedine',
@@ -16,8 +18,8 @@ export class SpostaPedineComponent implements OnInit {
   constructor(
     private router: Router,
     private spostaPedineService: SpostaPedineService,
-    private localStorageService: LocalStorageService
-    ) { }
+    private statoService: StatoService
+        ) { }
     
   partitaCreata: boolean = false;  
   territorio1: Territorio = new Territorio();
@@ -27,57 +29,62 @@ export class SpostaPedineComponent implements OnInit {
   tComplete: boolean = false;
   tSpostaPedine = false;
   tInserisciPedine = false;
-  territori:Territorio[];
+  cTerritori:CarteTerritorio[];
   territoriUpdate : Territorio[];
+  nPedine:Number;
 
-  ngOnInit() {
-    this.spostaPedineService.getAPIone('/getStatoPartita').subscribe(
-      data=> {
-        if(data >= 5)
+  async ngOnInit() {
+    let stato = (await this.statoService.getStato());
+    if(stato<6)
+    await this.statoService.setOperazioni(6)  
+        if(stato >= 6)
         {
           this.partitaCreata = true;
           this.getGiocatoreTurno();
-          this.listTerritori();
+          this.listCarteTerritori();
         }
-        if(data ==6)
+        if(stato ==7)
         this.tSpostaPedine = true
-      },(error) => {    
-        console.log(error);
-      }
-    )
-    
+   
       
   }
 
-  inserisciPedine(){
-    this.spostaPedineService.addAPI(this.territori,"/inserisciPedineTerritori")
+  inserisciPedine(t:String,i:Number){
+    this.spostaPedineService.getAPIone("/inserisciPedineTerritori/"+t+"/"+i)
     .subscribe(
       (responce) => {console.log(responce)}, (error) => {
       console.log(error);
     });
-    this.fineTurno();
     this.ngOnInit();
   }
 
-  spostaPedine(){
-    console.log(this.territorio1,this.territorio2,this.pedine1)
-    this.spostaPedineService.spostaPedine(this.territorio1, this.territorio2, this.pedine1);
-    this.spostaPedineService.getAPI("/fineTurno")
-    .subscribe(
-      (responce) => {console.log(responce)}, (error) => {
-      console.log(error);
-      }); 
-    this.router.navigateByUrl("/tabellone")
+  spostaPromise(){
+    return new Promise((resolve, reject) => {
+      this.spostaPedineService.spostaPedine(this.territorio1, this.territorio2, this.pedine1);
+      resolve()
+    })
   }
 
+  async spostaPedine(){
+    
+    await this.spostaPromise()
+    await this.router.navigateByUrl("/tabellone")
+    
+  }
+
+
   fineTurno(){
-    this.spostaPedineService.getAPI("/fineTurno")
-    .subscribe(
-      (responce) => {console.log(responce)}, (error) => {
-      console.log(error);
-      }); 
-      this.ngOnInit()
-    }
+    return new Promise((resolve, reject) => {
+      this.spostaPedineService.getAPI("/fineTurno")
+      .subscribe(
+        (responce) => {console.log(responce)}, (error) => {
+        console.log(error);
+        }); 
+      resolve()
+    })
+  }
+
+
 
     getGiocatoreTurno(){
       this.spostaPedineService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
@@ -88,13 +95,13 @@ export class SpostaPedineComponent implements OnInit {
 
     }
 
-    listTerritori(){
+    listCarteTerritori(){
       this.spostaPedineService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
         data=> {
           this.giocatoreTurno = data;
-          this.spostaPedineService.getAPI('/getTerritoriGiocatore/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
+          this.spostaPedineService.getAPI('/getCarteTerritorio/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
             data=> {
-              this.territori = data;             
+              this.cTerritori = data;             
             }
             )
         }

@@ -17,19 +17,20 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let tempTerritorio of territori" >
-                    <td>{{tempTerritorio.nome}}</td>
+                <tr *ngFor="let tempTerritorio of cTerritori" >
+                    <td *ngIf="tempTerritorio.simbolo!=Jolly">{{tempTerritorio.nome}}</td>
                     <td>
-                        <input type="number" class="form-control" placeholder="pedina " [(ngModel)]="tempTerritorio.npedine" name="territorio"/> 
+                        <input type="number" class="form-control" placeholder="pedina " [(ngModel)]="nPedine" name="territorio"/> 
                     </td>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" (click)="inserisciPedine(tempTerritorio.nome,nPedine)">Inserisci pedine</button>
+                    </div>
                 </tr>
             </tbody>
         </table>
-        <ul>
-            <div class="form-group">
-                <button type="submit" class="btn btn-primary" (click)="inserisciPedine()">Inserisci pedine</button>
-            </div>
-        </ul>
+      
+     
+  
     </ul>
 
 

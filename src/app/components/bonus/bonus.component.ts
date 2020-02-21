@@ -8,6 +8,7 @@ import { Territorio } from 'src/app/common/territorio';
 import { Regola } from 'src/app/common/regola';
 import { Bonus } from 'src/app/common/bonus';
 import { BoolPartita } from 'src/app/common/bool-partita';
+import { StatoService } from 'src/app/services/stato.service';
 
 
 
@@ -67,14 +68,17 @@ name: "tris con jolly"
 
   constructor(
     private localStorageService: LocalStorageService,
-    private bonusService: FullResponceService
+    private bonusService: FullResponceService,
+    private statoService: StatoService
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
+    let stato = (await this.statoService.getStato());
+    if(stato<4)
+    await this.statoService.setOperazioni(4)
     
-    this.bonusService.getAPIone('/getStatoPartita').subscribe(
-      data=> {
-        if(data >= 4)
+
+        if(stato >= 4)
         {
           this.listCarteTerritorio();
           this.bool.partitaCreata = true;
@@ -83,15 +87,10 @@ name: "tris con jolly"
           this.listTerritori();
         
         }
-        if(data >= 5 ){
+        if(stato >= 5 ){
           this.bool.bonusCreato = true;
           this.getBonus();
         }
-
-      },(error) => {    
-        console.log(error);
-      }
-    )
   }
 
   

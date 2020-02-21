@@ -1,10 +1,10 @@
-<a class="btn btn-primary" [routerLink] = "'partita'" role="button">Partita</a>
-<a class="btn btn-primary" [routerLink] = "'giocatore-list'" role="button">Giocatori</a>
-<a class="btn btn-primary" [routerLink] = "'tabellone'" role="button">Tabellone</a>
-<a class="btn btn-primary" [routerLink] = "'carte'" role="button">Carte</a>
-<a class="btn btn-primary" [routerLink] = "'registro-combattimento'" role="button">Combattimeni</a>
-<a class="btn btn-primary" [routerLink] = "'sposta-pedine'" role="button">Sposta Pedine</a>
-<a class="btn btn-primary" [routerLink] = "'bonus'" role="button">Bonus</a>
+<a *ngIf="partita" class="btn btn-primary" [routerLink] = "'partita'" role="button">Partita</a>
+<a *ngIf="giocatori" class="btn btn-primary" [routerLink] = "'giocatore-list'" role="button">Giocatori</a>
+<a *ngIf="tabellone" class="btn btn-primary" [routerLink] = "'tabellone'" role="button">Tabellone</a>
+<a *ngIf="carte" class="btn btn-primary" [routerLink] = "'carte'" role="button">Carte</a>
+<a *ngIf="combattimento" class="btn btn-primary" [routerLink] = "'registro-combattimento'" role="button">Combattimeni</a>
+<a *ngIf="spostaPedine" class="btn btn-primary" [routerLink] = "'sposta-pedine'" role="button">Sposta Pedine</a>
+<a *ngIf="bonus" class="btn btn-primary" [routerLink] = "'bonus'" role="button">Bonus</a>
 
 
 <router-outlet>
