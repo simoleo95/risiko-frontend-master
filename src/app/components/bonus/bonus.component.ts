@@ -9,6 +9,8 @@ import { Regola } from 'src/app/common/regola';
 import { Bonus } from 'src/app/common/bonus';
 import { BoolPartita } from 'src/app/common/bool-partita';
 import { StatoService } from 'src/app/services/stato.service';
+import { AppComponent } from 'src/app/app.component';
+import { Router } from '@angular/router';
 
 
 
@@ -22,7 +24,7 @@ export class BonusComponent implements OnInit {
   carteTerritorio: CarteTerritorio[];
   tComplete = false;
   giocatoreTurno: GiocatoreTurno = new GiocatoreTurno();
-  territori: Territorio[];
+  carteTerritori: CarteTerritorio[];
   out : String[];
   listBonus : Bonus[] = [];
   bool : BoolPartita = new BoolPartita()
@@ -69,7 +71,8 @@ name: "tris con jolly"
   constructor(
     private localStorageService: LocalStorageService,
     private bonusService: FullResponceService,
-    private statoService: StatoService
+    private statoService: StatoService,
+    private router: Router
   ) { }
 
   async ngOnInit() {
@@ -123,9 +126,9 @@ listCarteTerritorio(){
     this.bonusService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
       data=> {
         this.giocatoreTurno = data;
-        this.bonusService.getAPI('/getTerritoriGiocatore/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
+        this.bonusService.getAPI('/getCarteTerritorio/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
           data=> {
-          this.territori = data;
+          this.carteTerritori = data;
     }
     )
   
@@ -133,7 +136,7 @@ listCarteTerritorio(){
     )
   }
 
-  addBonus(){
+  async addBonus(){
     
     this.out=[""];
  
@@ -153,6 +156,8 @@ listCarteTerritorio(){
       console.log(error);
     });
     this.bool.bonusCreato=true;
+    this.ngOnInit();
+    this.ngOnInit();
   }
    
   getBonus(){

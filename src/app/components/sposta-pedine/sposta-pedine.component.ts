@@ -7,6 +7,7 @@ import { finalize } from 'rxjs/operators';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
 import { CarteTerritorio } from 'src/app/common/carte-territorio';
 import { StatoService } from 'src/app/services/stato.service';
+import { Giocatore } from 'src/app/common/giocatore';
 
 @Component({
   selector: 'app-sposta-pedine',
@@ -20,7 +21,8 @@ export class SpostaPedineComponent implements OnInit {
     private spostaPedineService: SpostaPedineService,
     private statoService: StatoService
         ) { }
-    
+  
+  giocatore:Giocatore = new Giocatore();      
   partitaCreata: boolean = false;  
   territorio1: Territorio = new Territorio();
   territorio2:Territorio = new Territorio();
@@ -32,16 +34,18 @@ export class SpostaPedineComponent implements OnInit {
   cTerritori:CarteTerritorio[];
   territoriUpdate : Territorio[];
   nPedine:Number;
+  pedineDaInserire:Number =0;
 
   async ngOnInit() {
     let stato = (await this.statoService.getStato());
     if(stato<6)
     await this.statoService.setOperazioni(6)  
-        if(stato >= 6)
+        if(stato >= 5)
         {
           this.partitaCreata = true;
           this.getGiocatoreTurno();
           this.listCarteTerritori();
+          //this.getPedineDaInserire()
         }
         if(stato ==7)
         this.tSpostaPedine = true
@@ -50,9 +54,21 @@ export class SpostaPedineComponent implements OnInit {
   }
 
   inserisciPedine(t:String,i:Number){
-    this.spostaPedineService.getAPIone("/inserisciPedineTerritori/"+t+"/"+i)
+    this.spostaPedineService.getAPIone("/addPedineIniziali/"+t+"/"+i)
     .subscribe(
       (responce) => {console.log(responce)}, (error) => {
+      console.log(error);
+    });
+    this.ngOnInit();
+  }
+
+
+  getPedineDaInserire(){
+    this.spostaPedineService.getAPIone("/pedineDaInserire")
+    .subscribe(
+      (data) => {
+
+      }, (error) => {
       console.log(error);
     });
     this.ngOnInit();
@@ -73,6 +89,15 @@ export class SpostaPedineComponent implements OnInit {
   }
 
 
+  convalidaPedine(){
+    this.spostaPedineService.getAPI("/convalidaPedine")
+    .subscribe(
+      (responce) => {console.log(responce)}, (error) => {
+      console.log(error);
+      }); 
+      this.ngOnInit();
+  }
+
   fineTurno(){
     return new Promise((resolve, reject) => {
       this.spostaPedineService.getAPI("/fineTurno")
@@ -90,6 +115,11 @@ export class SpostaPedineComponent implements OnInit {
       this.spostaPedineService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
         data=> {
           this.giocatoreTurno = data;
+          this.spostaPedineService.getAPIone('/getGiocatore/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
+            data=> {
+              this.giocatore = data;
+            }
+          )
         }
       )
 
@@ -99,6 +129,7 @@ export class SpostaPedineComponent implements OnInit {
       this.spostaPedineService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
         data=> {
           this.giocatoreTurno = data;
+          console.log(this.giocatoreTurno.turno.nomeGiocatore)
           this.spostaPedineService.getAPI('/getCarteTerritorio/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
             data=> {
               this.cTerritori = data;             

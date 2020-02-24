@@ -106,7 +106,6 @@ export class GiocatoreListComponent implements OnInit {
 
   endGiocatori(){
     let n:number;
-    // salva in locale il numero di giocatori 
     this.giocatoreService.getAPIone('/nGiocatori/').subscribe(
       data=> {
         this.bool.fineGiocatori = true;
@@ -114,11 +113,10 @@ export class GiocatoreListComponent implements OnInit {
         console.log(error);
       }
     )
-    this.ngOnInit();
+    
   }
 
   setMazziere(){
-    // salva in locale chi è il mazziere
     if(this.nomeMazziere!=""){
       for(let g of this.giocatori){
         if(g.nome == this.nomeMazziere){

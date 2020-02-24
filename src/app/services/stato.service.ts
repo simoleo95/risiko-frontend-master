@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FullResponceService } from './full-responce.service';
+import { AppComponent } from '../app.component';
 
 @Injectable({
   providedIn: 'root'
@@ -24,13 +25,15 @@ export class StatoService {
         this.out = this.out+"prima assegna carte"    
       if(soglia==7)
         this.out = this.out+"prima sposta le pedine "  
-      alert(this.out)    
+      alert(this.out)
+   
        resolve()
      })
   }
 
   private stato:Number;
-  constructor(private statoSerice: FullResponceService) {
+  constructor(private statoSerice: FullResponceService,
+   ) {
    }
 
    public getStato(){

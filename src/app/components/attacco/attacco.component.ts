@@ -32,10 +32,10 @@ export class AttaccoComponent implements OnInit {
 
     public regole = [{
       valore: 1,
-      name: "Simone"
+      name: "Classico"
   }, {
       valore: 2,
-      name: "Classico"
+      name: "Simone"
   }];
 
   public selectedRegola: number = this.regole[1].valore;

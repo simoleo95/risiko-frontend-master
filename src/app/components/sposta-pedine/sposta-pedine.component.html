@@ -6,9 +6,12 @@
 <ul *ngIf="partitaCreata">
     <ul *ngIf="tComplete">
         <h3>Giocatore in turno: {{giocatoreTurno.turno.nomeGiocatore}}</h3>
+        <br>
     </ul>
 
     <ul *ngIf="!tSpostaPedine">
+        <h6>n pedine da inserire: {{pedineDaInserire}}</h6>
+        <br>
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -27,6 +30,8 @@
                     </div>
                 </tr>
             </tbody>
+            <button type="submit" class="btn btn-primary" (click)="convalidaPedine()">Fine Turno</button>
+
         </table>
       
      

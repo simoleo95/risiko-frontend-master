@@ -25,6 +25,7 @@ export class AppComponent {
   bonus:boolean=false;
   partita: boolean = true;
   giocatori: boolean=false;
+  
   async ngOnInit(): Promise<void> {
     let stato = (await this.statoService.getStato());
     if(stato=>1){

@@ -6,6 +6,8 @@ import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
 import { finalize } from 'rxjs/operators';
 import { CarteObiettivo } from 'src/app/common/carte-obiettivo';
 import { StatoService } from 'src/app/services/stato.service';
+import { AppComponent } from 'src/app/app.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-carte',
@@ -26,14 +28,16 @@ export class CarteComponent implements OnInit {
 
   constructor(
     private carteService: FullResponceService,
-    private statoService: StatoService
+    private statoService: StatoService,
+    private appComponent: AppComponent,
+    private router: Router,
   ) { }
 
   async ngOnInit() {
     let stato = (await this.statoService.getStato());
     if(stato<5)
     await this.statoService.setOperazioni(5)
-        if(stato >= 5)
+        if(stato == 5)
         {
           this.listCarteObiettivo();
           this.listCarteTerritorio();
