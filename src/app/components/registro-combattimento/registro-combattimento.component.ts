@@ -57,10 +57,10 @@ export class RegistroCombattimentoComponent implements OnInit {
   async ngOnInit() {
 
     let stato = (await this.statoService.getStato());
-    if(stato<6)
+    if(stato<8)
     await this.statoService.setOperazioni(6)
  
-        if(stato >= 6)
+        if(stato >= 8)
         {
           this.getGiocatoreTurno();
           this.listCombattimenti();

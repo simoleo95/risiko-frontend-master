@@ -40,14 +40,14 @@ export class SpostaPedineComponent implements OnInit {
     let stato = (await this.statoService.getStato());
     if(stato<6)
     await this.statoService.setOperazioni(6)  
-        if(stato >= 5)
+        if(stato >= 5 && stato!=7)
         {
           this.partitaCreata = true;
           this.getGiocatoreTurno();
           this.listCarteTerritori();
           //this.getPedineDaInserire()
         }
-        if(stato ==7)
+        if(stato ==8)
         this.tSpostaPedine = true
    
       

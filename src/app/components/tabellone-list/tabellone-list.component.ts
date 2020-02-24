@@ -27,9 +27,9 @@ export class TabelloneListComponent implements OnInit {
   async ngOnInit() {
 
     let stato = (await this.statoService.getStato());
-    if(stato<7)
+    if(stato<8)
     await this.statoService.setOperazioni(7)
-      if(stato == 7)        {      
+      if(stato == 8)        {      
         this.partitaCreata = true;
         this.listTerritori();
         }

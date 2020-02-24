@@ -81,7 +81,7 @@ name: "tris con jolly"
     await this.statoService.setOperazioni(4)
     
 
-        if(stato >= 4)
+        if(stato == 4 || stato>=8)
         {
           this.listCarteTerritorio();
           this.bool.partitaCreata = true;
@@ -90,7 +90,7 @@ name: "tris con jolly"
           this.listTerritori();
         
         }
-        if(stato >= 5 ){
+        if(stato >= 8 ){
           this.bool.bonusCreato = true;
           this.getBonus();
         }

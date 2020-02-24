@@ -25,6 +25,7 @@ export class CarteComponent implements OnInit {
   sceltaCarte : Number[] = []
   jolly :Number = 0;
   cartaObiettivo: CarteObiettivo = new CarteObiettivo();
+  carteRitirate :boolean= false;
 
   constructor(
     private carteService: FullResponceService,
@@ -37,17 +38,20 @@ export class CarteComponent implements OnInit {
     let stato = (await this.statoService.getStato());
     if(stato<5)
     await this.statoService.setOperazioni(5)
-        if(stato == 5)
+        if(stato >= 5 || stato>7)
         {
           this.listCarteObiettivo();
           this.listCarteTerritorio();
           this.partitaCreata = true;
           }
-          if(stato==7){
+          if(stato==8){
             this.listCarteTerritorioGiocatore();
             this.listCarteObiettivoGiocatore();
             this.carteComplete = true;
 
+          }
+          if(stato == 7){
+            this.carteRitirate = true;
           }
 
   }
@@ -131,4 +135,14 @@ export class CarteComponent implements OnInit {
       }
     )
   }
+
+
+  ritiraCarte(){
+    this.carteService.getAPIone('/ritiraCarte').subscribe(
+      data=> {
+        console.log(data)
+      }
+    )
+  }
+
 }
