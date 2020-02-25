@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CarteTerritorio } from 'src/app/common/carte-territorio';
+import { CartaTerritorio } from 'src/app/common/carte-territorio';
 import { FullResponceService } from 'src/app/services/full-responce.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 })
 export class CarteComponent implements OnInit {
 
-  carteTerritorio: CarteTerritorio[];
+  carteTerritorio: CartaTerritorio[];
   partitaCreata : boolean = false;
   giocatoreTurno = new GiocatoreTurno;
   tComplete = false;
@@ -38,7 +38,7 @@ export class CarteComponent implements OnInit {
     let stato = (await this.statoService.getStato());
     if(stato<5)
     await this.statoService.setOperazioni(5)
-        if(stato >= 5 || stato>7)
+        if(stato == 5 || stato>=7)
         {
           this.listCarteObiettivo();
           this.listCarteTerritorio();
@@ -143,6 +143,7 @@ export class CarteComponent implements OnInit {
         console.log(data)
       }
     )
+    this.ngOnInit()
   }
 
 }

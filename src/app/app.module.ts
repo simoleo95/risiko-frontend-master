@@ -21,6 +21,7 @@ import { LocalStorageService } from './services/local-storage.service';
 import { BonusComponent } from './components/bonus/bonus.component';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { PedineBonusComponent } from './components/pedine-bonus/pedine-bonus.component';
 
 
 
@@ -40,6 +41,7 @@ const appRoutes: Routes = [
     SpostaPedineComponent,
     PartitaComponent,
     BonusComponent,
+    PedineBonusComponent,
   ],
   imports: [
     BrowserModule,

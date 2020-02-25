@@ -17,6 +17,42 @@
         </tr>
     </tbody>
 </table>
+<h5>Scegli la modalita per il bonus delle carte: </h5>
+<br>
+<ul>
+    <h3>Pedine per i territori: {{bonusTerritori}}</h3>
+    <button type="button" class="btn-primary" 
+                (click)="getBonusTerritori()">Bonus dai territori</button>
+</ul>
+
+<h5>Scegli le carte da usare</h5>
+<table class="table" >
+    <thead class="thead-dark">
+        <tr>
+            <th>Nome </th>
+            <th>Simbolo</th>
+            <th><button type="button" class="btn-primary" (click)="listCarteTerritorio()">Ricarica carte</button>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let cartaS of carteTerritorioScelte">
+            <th *ngIf="cartaS.nome!=''">{{cartaS.nome}}</th>
+            <th *ngIf="cartaS.nome!=''">{{cartaS.simbolo}}</th>    
+            <th *ngIf="cartaS.nome!=''"><button type="button" class="btn btn-outline-danger" 
+                (click)="deleteCarteScelte(cartaS)">Elimina Bonus</button>
+            </th>
+        </tr>
+    </tbody>
+</table>
+
+
+<br>
+<button type="submit" class="btn btn-primary" (click)="usaBonus()">Usa bonus</button>
+<br>
+<button type="submit" class="btn btn-primary"  [routerLink]="['/pedine-bonus']">Convalida bonus</button>
+
+
 </ul>
 
 
@@ -38,6 +74,9 @@
     {{regolaC.name}}
 </mat-checkbox>
 <br>
-<button type="submit" class="btn btn-primary" (click)="addBonus()">Set bonus</button>
+
+
+
+<button type="submit" class="btn btn-primary" (click)="addBonus()">Add bonus</button>
 </ul>
 

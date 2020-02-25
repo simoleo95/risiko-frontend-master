@@ -1,7 +1,7 @@
-import { CarteTerritorio } from './carte-territorio';
+import { CartaTerritorio } from './carte-territorio';
 
-describe('CarteTerritorio', () => {
+describe('CartaTerritorio', () => {
   it('should create an instance', () => {
-    expect(new CarteTerritorio()).toBeTruthy();
+    expect(new CartaTerritorio()).toBeTruthy();
   });
 });

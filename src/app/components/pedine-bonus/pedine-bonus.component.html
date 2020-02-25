@@ -1,0 +1,30 @@
+<form *ngIf="!spostate&&nPedine!=0"> 
+    <h3>Sposta: {{nPedine}} pedine</h3>
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+                <td>Nome</td>
+                <td>n pedine</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let tempTerritorio of territori" >
+                <td >{{tempTerritorio.nome}}</td>
+                <td>
+                    <input type="number" class="form-control" placeholder="pedina " [(ngModel)]="nPedineT" name="territorio"/> 
+                </td>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" (click)="inserisciPedine(tempTerritorio.nome,nPedineT)">Inserisci pedine</button>
+                </div>
+            </tr>
+        </tbody>
+
+    </table>
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary" (click)="spostaPedine()">Sposta</button>
+    </div>
+</form>
+<ul *ngIf="spostate">
+    <button type="submit" class="btn btn-primary" >togli carte</button>
+
+</ul>

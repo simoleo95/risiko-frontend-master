@@ -81,10 +81,13 @@
         <button *ngIf="jolly==0" type="submit" class="btn btn-primary" (click)="togliJolly()">Togli jolly</button>
         <br>
         <button type="submit" class="btn btn-primary" (click)="assegnaCarte()">Assegna carte </button>
+        <ul *ngIf="carteRitirate">
+            <button type="submit" class="btn btn-primary" (click)="ritiraCarte()">Ritira carte</button>
+        </ul>
     </ul>
 
-    <ul *ngIf="carteRitirate">
-        <button type="submit" class="btn btn-primary" (click)="ritiraCarte()">Ritira carte</button>
-    </ul>
+
+
+
 
 </ul>

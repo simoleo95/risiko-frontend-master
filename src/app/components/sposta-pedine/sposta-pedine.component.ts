@@ -5,7 +5,7 @@ import { SpostaPedineService } from 'src/app/services/sposta-pedine.service';
 import { LocalStorageService } from 'src/app/services/local-storage.service';
 import { finalize } from 'rxjs/operators';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
-import { CarteTerritorio } from 'src/app/common/carte-territorio';
+import { CartaTerritorio } from 'src/app/common/carte-territorio';
 import { StatoService } from 'src/app/services/stato.service';
 import { Giocatore } from 'src/app/common/giocatore';
 
@@ -31,7 +31,7 @@ export class SpostaPedineComponent implements OnInit {
   tComplete: boolean = false;
   tSpostaPedine = false;
   tInserisciPedine = false;
-  cTerritori:CarteTerritorio[];
+  cTerritori:CartaTerritorio[];
   territoriUpdate : Territorio[];
   nPedine:Number;
   pedineDaInserire:Number =0;
@@ -85,6 +85,7 @@ export class SpostaPedineComponent implements OnInit {
     
     await this.spostaPromise()
     await this.router.navigateByUrl("/tabellone")
+    this.ngOnInit()
     
   }
 
