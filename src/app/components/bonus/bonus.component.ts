@@ -8,6 +8,7 @@ import { Bonus } from 'src/app/common/bonus';
 import { BoolPartita } from 'src/app/common/bool-partita';
 import { StatoService } from 'src/app/services/stato.service';
 import { Router } from '@angular/router';
+import { Giocatore } from 'src/app/common/giocatore';
 
 @Component({
   selector: 'app-bonus',
@@ -27,6 +28,7 @@ export class BonusComponent implements OnInit {
   bonusTerritori: number=0;
   bonusCarte : number=0;
   nPed: number =0;
+  giocatore:Giocatore = new Giocatore();
 
 
   public regoleT =  [{
@@ -62,7 +64,6 @@ name: "tris con jolly"
 
 
   constructor(
-    private localStorageService: LocalStorageService,
     private bonusService: FullResponceService,
     private statoService: StatoService,
     private router: Router
@@ -102,7 +103,7 @@ name: "tris con jolly"
       carteOut.push(c)
     if(carteOut.length==3){
       this.bonusService.addAPI(carteOut, '/usaBonus').subscribe(
-        (responce) => {
+        (responce:number) => {
           console.log(responce);
            this.bonusCarte=responce
            this.nPed = this.bonusTerritori + this.bonusCarte;
@@ -124,6 +125,10 @@ name: "tris con jolly"
     this.bonusService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
       data=> {
         this.giocatoreTurno = data;
+        this.bonusService.getAPIone('/getGiocatore/'+this.giocatoreTurno.turno.nomeGiocatore).pipe(finalize(()=> this.tComplete=true)).subscribe(
+          data=> {
+            this.giocatore = data;
+          })
       })
   }
 

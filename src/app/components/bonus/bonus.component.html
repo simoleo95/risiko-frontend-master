@@ -19,11 +19,13 @@
 </table>
 <h5>Scegli la modalita per il bonus delle carte: </h5>
 <br>
-<ul>
+
+
+<ul *ngIf="giocatore.bonusAssegnato==0">
     <h3>Pedine per i territori: {{bonusTerritori}}</h3>
     <button type="button" class="btn-primary" 
                 (click)="getBonusTerritori()">Bonus dai territori</button>
-</ul>
+
 
 <h5>Scegli le carte da usare</h5>
 <table class="table" >
@@ -51,7 +53,7 @@
 <button type="submit" class="btn btn-primary" (click)="usaBonus()">Usa bonus</button>
 <br>
 <button type="submit" class="btn btn-primary"  [routerLink]="['/pedine-bonus']">Convalida bonus</button>
-
+</ul>
 
 </ul>
 

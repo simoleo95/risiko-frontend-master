@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Territorio } from 'src/app/common/territorio';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FullResponceService } from 'src/app/services/full-responce.service';
 import { Giocatore } from 'src/app/common/giocatore';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
+import { CartaTerritorio } from 'src/app/common/carte-territorio';
 
 @Component({
   selector: 'app-pedine-bonus',
@@ -20,14 +21,16 @@ export class PedineBonusComponent implements OnInit {
   nPedine: number;
   nPedineT: number;
   spostate: boolean = false;
-
+  listCarte:CartaTerritorio[]=[]
   constructor(
     private route: ActivatedRoute,
-    private pedineBonusService: FullResponceService
+    private pedineBonusService: FullResponceService,
+    private router : Router
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+  
       this.pedineBonusService.getAPIone('/getNpedineTotal').subscribe(
         data=> {
           this.nPedine = data
@@ -73,5 +76,16 @@ export class PedineBonusComponent implements OnInit {
       }); 
       this.ngOnInit();
   }
-
+  togliCarte(){
+    console.log(this.territori)
+    this.pedineBonusService.getAPIone("/togliCarte")
+    .subscribe(
+      (responce) => {
+        console.log(responce);
+      }, (error) => {
+      console.log(error);
+      }); 
+      this.ngOnInit();
+      this.router.navigateByUrl("bonus")
+  }
 }

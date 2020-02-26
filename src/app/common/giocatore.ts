@@ -8,4 +8,5 @@ export class Giocatore {
     territori: Territorio[];
     cartaAssegnata: number;
     descrittorePedina : DescrittorePedina;
+    bonusAssegnato: number;
 }
