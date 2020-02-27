@@ -11,6 +11,7 @@ import { Turno } from 'src/app/common/turno';
 import { FullResponceService } from 'src/app/services/full-responce.service';
 import { BoolPartita } from 'src/app/common/bool-partita';
 import { StatoService } from 'src/app/services/stato.service';
+import { DescrittoreGiocatore } from 'src/app/common/descrittore-giocatore';
 
 
 @Component({
@@ -28,6 +29,8 @@ export class GiocatoreListComponent implements OnInit {
   mod = new Modalita();
   nRimescoli: number;
   bool : BoolPartita = new BoolPartita;
+  etaG : number;
+  nomeG: String;
   
   coloreSet : String ;
   mazziere = new Giocatore();
@@ -80,8 +83,14 @@ export class GiocatoreListComponent implements OnInit {
   addGiocatore():void{
     console.log(this.coloreSet)
     let descrittorePedina : DescrittorePedina = new DescrittorePedina();
+    let descrittoreGiocatore : DescrittoreGiocatore = new DescrittoreGiocatore();
+
     descrittorePedina.colore = this.coloreSet;
-    this.giocatore.descrittorePedina=descrittorePedina;
+    descrittoreGiocatore.eta=this.etaG;
+    descrittoreGiocatore.nome=this.nomeG;
+    this.giocatore.nome = this.nomeG
+    descrittoreGiocatore.descrittorePedina=descrittorePedina
+    this.giocatore.descrittoreGiocatore=descrittoreGiocatore;
     
     this.giocatoreService.addAPI(this.giocatore,"/addGiocatore")
     .subscribe((responce) => {console.log(responce);

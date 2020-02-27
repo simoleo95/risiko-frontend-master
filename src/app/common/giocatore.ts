@@ -1,12 +1,9 @@
 import { Territorio } from './territorio';
 import { DescrittorePedina } from './descrittore-pedina';
+import { DescrittoreGiocatore } from './descrittore-giocatore';
 
 export class Giocatore {
     id: number;
-    nome:string;
-    eta: number
-    territori: Territorio[];
-    cartaAssegnata: number;
-    descrittorePedina : DescrittorePedina;
-    bonusAssegnato: number;
+    nome:String;
+    descrittoreGiocatore: DescrittoreGiocatore;
 }

@@ -19,9 +19,9 @@
         <tbody>
             <tr *ngFor="let giocatore of giocatori">
                 <th>{{giocatore.id}}</th>
-                <th>{{giocatore.nome}}</th>
-                <th>{{giocatore.eta}}</th>   
-                <th>{{giocatore.descrittorePedina.colore}}</th>   
+                <th>{{giocatore.descrittoreGiocatore.nome}}</th>
+                <th>{{giocatore.descrittoreGiocatore.eta}}</th>   
+                <th>{{giocatore.descrittoreGiocatore.descrittorePedina.colore}}</th>   
 
                 <th *ngIf="!bool.fineGiocatori"><button type="button" class="btn btn-outline-danger" (click)="deleteGiocatore(giocatore.id)">Elimina</button>
                 </th>
@@ -47,12 +47,12 @@
         <form>
             <div class="form-group">
                 <label for="nomeGiocatore">Nome giocatore</label>
-                <input type="text" class="form-control" placeholder="Inserisci nome giocatore" [(ngModel)]="giocatore.nome" name="nome"/> 
+                <input type="text" class="form-control" placeholder="Inserisci nome giocatore" [(ngModel)]="nomeG" name="nome"/> 
                 <small id="nomeGiocatoreHelp" class="form-text text-muted">Inserisci il nome del giocatore che vuoi aggiungere.</small>
             </div>
             <div class="form-group">
                 <label for="etaGiocatore">Eta</label>
-                <input type="text" class="form-control" placeholder="Eta" [(ngModel)]="giocatore.eta" name="eta"/>
+                <input type="text" class="form-control" placeholder="Eta" [(ngModel)]="etaG" name="eta"/>
             </div>
             <div class="form-group">
                 <label for="coloreSquadra">Colore</label>

@@ -9,6 +9,7 @@ import { BoolPartita } from 'src/app/common/bool-partita';
 import { StatoService } from 'src/app/services/stato.service';
 import { Router } from '@angular/router';
 import { Giocatore } from 'src/app/common/giocatore';
+import { DescrittoreGiocatore } from 'src/app/common/descrittore-giocatore';
 
 @Component({
   selector: 'app-bonus',
@@ -29,6 +30,7 @@ export class BonusComponent implements OnInit {
   bonusCarte : number=0;
   nPed: number =0;
   giocatore:Giocatore = new Giocatore();
+  descrittoreGiocatore = new DescrittoreGiocatore();
 
 
   public regoleT =  [{
@@ -128,6 +130,7 @@ name: "tris con jolly"
         this.bonusService.getAPIone('/getGiocatore/'+this.giocatoreTurno.turno.nomeGiocatore).pipe(finalize(()=> this.tComplete=true)).subscribe(
           data=> {
             this.giocatore = data;
+            this.descrittoreGiocatore = this.giocatore.descrittoreGiocatore;
           })
       })
   }
