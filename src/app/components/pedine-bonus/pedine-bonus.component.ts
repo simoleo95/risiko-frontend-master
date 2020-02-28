@@ -85,7 +85,8 @@ export class PedineBonusComponent implements OnInit {
       }, (error) => {
       console.log(error);
       }); 
+      alert("Carte ritirate")
       this.ngOnInit();
-      this.router.navigateByUrl("bonus")
+      this.router.navigateByUrl("tabellone")
   }
 }

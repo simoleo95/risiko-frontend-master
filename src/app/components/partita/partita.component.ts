@@ -23,6 +23,11 @@ export class PartitaComponent implements OnInit {
     private giocatoreService : FullResponceService,
     private router: Router) { }
 
+    public regolaRinforzi =  {
+      check: 0,
+      name: "regola speciale"
+  };
+
   ngOnInit() {
 
     this.giocatoreService.getAPIone('/getStatoPartita').subscribe(
@@ -40,10 +45,17 @@ export class PartitaComponent implements OnInit {
     })
   }
 
+  onChkChange(regolaRinforzi) {
+    this.regolaRinforzi.check = (this.regolaRinforzi.check+1)%2
+    console.log(this.regolaRinforzi)
+  } 
+
   addPartita(){
     this.mod.nrimescoli=this.nRimescoli;
     this.mod.nomeM = this.modalitaNome
     this.partita.modalitaB = this.mod;
+    this.partita.modalitaB.regolaRinforzi = this.regolaRinforzi.check;
+
 
     this.giocatoreService.addAPI(this.partita,"/addPartita")
     .subscribe(

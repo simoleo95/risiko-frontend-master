@@ -5,4 +5,5 @@ export class Modalita {
     nomeM: String;
     nrimescoli: number;
     partite: Partita[];    
+    regolaRinforzi: number;
 }
