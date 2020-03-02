@@ -37,6 +37,8 @@
 </div>
 
 <div *ngIf="newAttacco">
+  <button type="submit" *ngIf="!creaAttacco" class="btn btn-primary" (click)="abilitaAttacco()">Nuovo attacco</button>
+<ul *ngIf="creaAttacco">
   <form>
     <div class="form-group">
       <label for="pedineAttaccante">Numero pedine attaccante</label>
@@ -57,4 +59,6 @@
     
     <button type="submit" class="btn btn-primary" (click)="addBattaglia()">Lancia dadi!</button>
   </form>
+</ul>
+
 </div>

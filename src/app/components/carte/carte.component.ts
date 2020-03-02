@@ -26,6 +26,7 @@ export class CarteComponent implements OnInit {
   jolly :Number = 0;
   cartaObiettivo: CarteObiettivo = new CarteObiettivo();
   carteRitirate :boolean= false;
+  stato
 
   constructor(
     private carteService: FullResponceService,
@@ -35,22 +36,22 @@ export class CarteComponent implements OnInit {
   ) { }
 
   async ngOnInit() {
-    let stato = (await this.statoService.getStato());
-    if(stato<5)
+    this.stato =  await this.statoService.getStato();
+    if(this.stato<5)
     await this.statoService.setOperazioni(5)
-        if(stato == 5 || stato>=7)
+        if(this.stato == 5 || this.stato>=7)
         {
           this.listCarteObiettivo();
           this.listCarteTerritorio();
           this.partitaCreata = true;
           }
-          if(stato==8){
+          if(this.stato==8){
             this.listCarteTerritorioGiocatore();
             this.listCarteObiettivoGiocatore();
             this.carteComplete = true;
 
           }
-          if(stato == 7){
+          if(this.stato == 7){
             this.carteRitirate = true;
           }
 
@@ -82,11 +83,14 @@ export class CarteComponent implements OnInit {
 
   assegnaCarteTerritorio(){
     return new Promise((resolve, reject) => {
+      if(this.jolly==0)
+      alert("carte jolly non ritirate")
       this.carteService.getAPI('/assegnaCarteTerritorio/'+this.jolly).subscribe(
         data=> {
           console.log(data)
         }
       )
+      
       resolve();
     })
 
@@ -143,6 +147,8 @@ export class CarteComponent implements OnInit {
         console.log(data)
       }
     )
+    this.ngOnInit()
+    this.ngOnInit()
     this.ngOnInit()
   }
 

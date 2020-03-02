@@ -78,9 +78,9 @@
             </tbody>
         </table>
         <br>
-        <button *ngIf="jolly==0" type="submit" class="btn btn-primary" (click)="togliJolly()">Togli jolly</button>
+        <button *ngIf="jolly==0&&stato!=7" type="submit" class="btn btn-primary" (click)="togliJolly()">Togli jolly</button>
         <br>
-        <button type="submit" class="btn btn-primary" (click)="assegnaCarte()">Assegna carte </button>
+        <button type="submit" *ngIf="stato!=7" class="btn btn-primary" (click)="assegnaCarte()">Assegna carte </button>
         <ul *ngIf="carteRitirate">
             <button type="submit" class="btn btn-primary" (click)="ritiraCarte()">Ritira carte</button>
         </ul>

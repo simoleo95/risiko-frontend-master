@@ -45,7 +45,7 @@ export class SpostaPedineComponent implements OnInit {
           this.partitaCreata = true;
           this.getGiocatoreTurno();
           this.listCarteTerritori();
-          //this.getPedineDaInserire()
+          this.getPedineDaInserire()
         }
         if(stato ==8)
         this.tSpostaPedine = true
@@ -54,24 +54,45 @@ export class SpostaPedineComponent implements OnInit {
   }
 
   inserisciPedine(t:String,i:Number){
-    this.spostaPedineService.getAPIone("/addPedineIniziali/"+t+"/"+i)
-    .subscribe(
-      (responce) => {console.log(responce)}, (error) => {
-      console.log(error);
-    });
+    if((i>0&&!t.startsWith("Jolly"))|| t.startsWith("Jolly")){
+      this.spostaPedineService.getAPIone("/addPedineIniziali/"+t+"/"+i)
+      .subscribe(
+        (responce) => {console.log(responce)}, (error) => {
+        console.log(error);
+      });
+    }
+    else
+    alert("Inserisci almeno una pedina in ogni territorio")
     this.ngOnInit();
   }
 
 
   getPedineDaInserire(){
-    this.spostaPedineService.getAPIone("/pedineDaInserire")
+    this.spostaPedineService.getAPIone("/nGiocatori")
     .subscribe(
-      (data) => {
+      (data:number) => {
+        let n :number = data
+        this.spostaPedineService.getAPIone("/nPedineIniziali/"+n)
+        .subscribe(
+          (data) => {
+            this.pedineDaInserire = data;
+          }, (error) => {
+          console.log(error);
+        });
 
       }, (error) => {
       console.log(error);
     });
-    this.ngOnInit();
+
+
+    this.spostaPedineService.getAPIone("/nPedineIniziali/3")
+    .subscribe(
+      (data) => {
+        this.pedineDaInserire = data;
+      }, (error) => {
+      console.log(error);
+    });
+    //this.ngOnInit();
   }
 
   spostaPromise(){
@@ -96,6 +117,7 @@ export class SpostaPedineComponent implements OnInit {
       (responce) => {console.log(responce)}, (error) => {
       console.log(error);
       }); 
+      this.ngOnInit();
       this.ngOnInit();
   }
 
@@ -130,7 +152,6 @@ export class SpostaPedineComponent implements OnInit {
       this.spostaPedineService.getAPIone('/getGiocatoreTurno').pipe(finalize(()=> this.tComplete=true)).subscribe(
         data=> {
           this.giocatoreTurno = data;
-          console.log(this.giocatoreTurno.turno.nomeGiocatore)
           this.spostaPedineService.getAPI('/getCarteTerritorio/'+this.giocatoreTurno.turno.nomeGiocatore).subscribe(
             data=> {
               this.cTerritori = data;             
@@ -139,5 +160,8 @@ export class SpostaPedineComponent implements OnInit {
         }
       )
     }
+
+
+
 }
 

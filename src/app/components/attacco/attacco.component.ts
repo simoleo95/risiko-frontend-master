@@ -26,6 +26,7 @@ export class AttaccoComponent implements OnInit {
     attacco = new Attacco;
     attacchi: Attacco[];
     nRegola:number;
+    creaAttacco: boolean;
 
     lanci: Lancio[];
     newAttacco = true;
@@ -49,6 +50,7 @@ export class AttaccoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    
     if(this.localStorageService.retriveInfo()){
       this.route.params.subscribe(params => {
         this.id$ = params['id'];
@@ -66,7 +68,7 @@ export class AttaccoComponent implements OnInit {
         this.listAttacchi();
         this.listRisultati();
     }
-
+    this.creaAttacco=false;
   }
 
   listAttacchi(){
@@ -112,6 +114,10 @@ export class AttaccoComponent implements OnInit {
 
     this.ngOnInit();
  
+  }
+
+  abilitaAttacco(){
+    this.creaAttacco=true;
   }
 
 

@@ -5,7 +5,7 @@ import { TabelloneListComponent } from '../tabellone-list/tabellone-list.compone
 import { RegistroCombattimentoService } from 'src/app/services/registro-combattimento.service';
 import { Attacco } from 'src/app/common/attacco';
 import { Router, ActivatedRoute } from '@angular/router';
-import { delay, finalize } from 'rxjs/operators';
+import { delay, finalize, max } from 'rxjs/operators';
 import { GiocatoreTurno } from 'src/app/common/giocatore-turno';
 import { Giocatore } from 'src/app/common/giocatore';
 import { Observable } from 'rxjs';
@@ -55,7 +55,7 @@ export class RegistroCombattimentoComponent implements OnInit {
     
 
   async ngOnInit() {
-
+    
     let stato = (await this.statoService.getStato());
     if(stato<8)
     await this.statoService.setOperazioni(6)
@@ -66,7 +66,7 @@ export class RegistroCombattimentoComponent implements OnInit {
           this.listCombattimenti();
           this.partitaCreata = true;
         }
-
+        
   }
 
   
@@ -91,6 +91,10 @@ export class RegistroCombattimentoComponent implements OnInit {
   } 
 
   fineTurno(){
+    console.log(this.combattimenti)
+    let max = this.combattimenti.length-1
+    if(this.combattimenti[max].cartaAssegnata==1)
+    alert("Carta territorio non assegnata")
   this.giroService.getAPI("/fineTurno")
   .subscribe(
     (responce) => {console.log(responce)}, (error) => {
@@ -98,6 +102,7 @@ export class RegistroCombattimentoComponent implements OnInit {
     }); 
     this.tComplete = false;
     this.ngOnInit()
+    
   }
 
   getGiocatoreTurno(){

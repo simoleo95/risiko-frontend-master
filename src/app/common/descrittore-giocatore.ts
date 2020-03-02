@@ -9,4 +9,5 @@ export class DescrittoreGiocatore {
     cartaAssegnata: number;
     descrittorePedina : DescrittorePedina;
     bonusAssegnato: number;
+
 }
